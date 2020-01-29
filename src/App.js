@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import AdmingFrontPage from './pages/pages'
+import AdminFrontPage from './pages/pages'
 
 function App() {
   return (
-    <AdmingFrontPage></AdmingFrontPage>
+    <AdminFrontPage></AdminFrontPage>
     
   );
 }
