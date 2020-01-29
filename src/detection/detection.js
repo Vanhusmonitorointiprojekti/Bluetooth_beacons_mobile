@@ -29,13 +29,13 @@ db.connect((err) => {
 app.get('/detection',(res,req)=>{
   
     function calcSignal() {
-    var signalA = db.query('SELECT beacon_id, signal_db FROM beacon_detections where signal_db > "-50" order by measument_time desc limit 10', (err, rows, fields)=>
+    var signalA = db.query('SELECT * FROM beacon_detections where signal_db > "-50" order by measument_time desc limit 10', (err, rows, fields)=>
     {
         console.log(err)
             console.log('true >', rows)
     })
     
-    var signalB = db.query('SELECT beacon_id, signal_db FROM beacon_detections where signal_db < "-50" order by measument_time desc limit 10', (err, rows, fields)=>
+    var signalB = db.query('SELECT * FROM beacon_detections where signal_db < "-50" order by measument_time desc limit 10', (err, rows, fields)=>
    {
         console.log(err)
             console.log('out of range device id:  ' + rows[0].beacon_id, rows)
@@ -43,6 +43,6 @@ app.get('/detection',(res,req)=>{
     })
 
 }setInterval(calcSignal,10000);
-
-
+//todo: if signal is weakening from c area and is increasing in D area then alert.
+// Ignore signal dB from allowed areas?
 });
