@@ -9,8 +9,8 @@ render() {
                 <h1>Bluetooth beacons admin -page</h1>
                     <p>Tervetuloa admin käyttöliittymän etusivulle</p>
                     <p>Tällä sivulta pystyt hallinnoimaan kaikkia laitteita</p>
-                    <button style={styles.buttonstyle}>Test button hello</button>
-                    <button style={styles.buttonstyle}>Test button hello</button>
+                    <button>Test button hello</button>
+                    <button>Test button hello</button>
             </div>
         );
     }
