@@ -14,9 +14,6 @@ const db = mysql.createConnection({
 //  insecureAuth : true  
 });
 
-//App, listen this port
-app.listen(3000,()=>console.log('Express server is running at port no : 3000'));
-
 // Connect to database
 db.connect((err) => {
   if(err){
@@ -26,11 +23,20 @@ db.connect((err) => {
 });
 
 //GET data
-app.get('/beacon_info',(res,req)=>{
-  db.query('SELECT * FROM beacon_info', (err, rows, fields)=>{
-    if(!err)
+app.get('/beacon_info', function(req, res) {
+
+  db.query('SELECT * FROM beacon_info', (err, rows, fields) =>{
+    
+    if(!err) {
     console.log(rows)
-    else
+    res.send(rows)
+    }
+
+    else {
     console.log(err)
+    }
   })
 });
+
+//App, listen this port
+app.listen(3000,()=>console.log('Express server is running at port no : 3000'));
