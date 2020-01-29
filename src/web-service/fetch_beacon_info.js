@@ -34,8 +34,10 @@ app.get('/beacon_info', function(req, res) {
 
     else {
     console.log(err)
+    res.send(err)
     }
   })
+  
 });
 
 //App, listen this port
