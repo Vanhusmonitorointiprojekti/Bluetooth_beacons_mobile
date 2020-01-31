@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,6 +9,10 @@ import Box from '@material-ui/core/Box';
 
 function AdminFrontPage(props) {
     const{children, value, index} = props;
+
+   useEffect(() => {
+      document.title = "Admin frontpage"
+    })
 
 return(
 <Typography
@@ -47,6 +51,8 @@ function tabs(index) {
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
+
   
     return (
       <div className={classes.root}>
@@ -83,3 +89,4 @@ function tabs(index) {
     }
         
 } ;
+
