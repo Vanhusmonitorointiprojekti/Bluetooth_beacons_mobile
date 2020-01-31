@@ -1,9 +1,12 @@
-const express = require('express');
-const mysql = require('mysql');
+var express = require('express');
+var mysql = require('mysql');
 var app = express();
-const bodyparser = require('body-parser');
+var bodyparser = require('body-parser');
+var ip = require("ip")
 
 app.use(bodyparser.json());
+
+//##############This is the database connection part##############
 
 //Connection config
 const db = mysql.createConnection({
@@ -19,16 +22,26 @@ db.connect((err) => {
   if(err){
       throw err;
   }
-  console.log('Connection established with the database, write /beacon_info to URL to GET');
+  console.log('\nConnection established with the database');
 });
 
-//GET data
+//#################################################################
+
+var server = app.listen(4000, function() {
+  var host = ip.address()
+  var port = server.address().port
+  console.log('\nService is running at http://' + host + ':' + port)
+})
+
+//SQL queries//
+
+//GET beacon_info
 app.get('/beacon_info', function(req, res) {
 
   db.query('SELECT * FROM beacon_info', (err, rows, fields) =>{
     
     if(!err) {
-    console.log(rows)
+    console.log(rows, "\n Rows fetched from the database")
     res.send(rows)
     }
 
@@ -40,5 +53,3 @@ app.get('/beacon_info', function(req, res) {
   
 });
 
-//App, listen this port
-app.listen(3000,()=>console.log('Express server is running at port no : 3000'));
