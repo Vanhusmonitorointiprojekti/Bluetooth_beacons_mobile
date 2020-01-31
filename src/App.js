@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AdminFrontPage from './pages/pages'
+import AdminFrontPage from './web-service/pages/pages'
 
 function App() {
   return (

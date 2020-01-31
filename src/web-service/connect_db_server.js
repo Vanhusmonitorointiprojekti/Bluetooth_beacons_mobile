@@ -26,11 +26,17 @@ db.connect((err) => {
 });
 
 //GET data
-app.get('/beacon_info',(res,req)=>{
-  db.query('SELECT * FROM beacon_info', (err, rows, fields)=>{
-    if(!err)
-    console.log(rows)
-    else
-    console.log(err)
+app.get('/beacon_info', function (req, res) {
+
+  db.query('SELECT * FROM beacon_info', function(err, results, fields){
+    if(!err) {
+      console.log(results)
+      res.send(results);
+    }
+      
+    
+    else {
+      console.log(err)
+    }
   })
 });
