@@ -17,10 +17,13 @@ componentDidMount = () => {
 
 haeTiedot = () => {
     let self = this;
-    fetch('localhost:3000'+'/beacon_info')
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({tieto: responseJson});
+    fetch('localhost:3000'+'/beacon_info', {
+        method: "get"
+    })
+        .then((response) =>  {
+            console.log(response)
+            var array = Array.from(response.json());
+            this.setState({tieto: array});
         })
        .catch((error) => {
           this.setState({error: 'Tietojen haku ei onnistunut'});
