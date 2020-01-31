@@ -30,7 +30,7 @@ db.connect((err) => {
 var server = app.listen(4000, function() {
   var host = ip.address()
   var port = server.address().port
-  console.log('\nService is running at http://' + host + ':' + port)
+  console.log('\nBackend-service is running at http://' + host + ':' + port)
 })
 
 //SQL queries//
@@ -38,7 +38,7 @@ var server = app.listen(4000, function() {
 //GET beacon_info
 app.get('/beacon_info', function(req, res) {
 
-  db.query('SELECT * FROM beacon_info', (err, rows, fields) =>{
+  db.query('SELECT * FROM beacon_info', (err, rows, fields) => {
     
     if(!err) {
     console.log(rows, "\n Rows fetched from the database")
@@ -52,4 +52,41 @@ app.get('/beacon_info', function(req, res) {
   })
   
 });
+
+//GET receiver_info
+app.get('/receiver_info', function(req, res) {
+
+  db.query('SELECT * FROM receiver_info', (err, rows, fields) => {
+
+    if(!err) {
+      console.log(rows, "\n Rows fetched from the database")
+      res.send(rows)
+    }
+
+    else {
+      console.log(err)
+      res.send(err)
+    }
+  })
+});
+
+
+//GET Last 50 beacon_detections
+app.get('/beacon_detections', function(req, res) {
+
+  db.query('SELECT * FROM beacon_detections ORDER BY measument_time DESC limit 50;', (err, rows, fields) => {
+
+    if(!err) {
+      console.log(rows, "\n Rows fetched from the database")
+      res.send(rows)
+    }
+
+    else {
+      console.log(err)
+      res.send(err)
+    }
+  })
+});
+
+
 
