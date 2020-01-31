@@ -90,3 +90,25 @@ app.get('/beacon_detections', function(req, res) {
 
 
 
+//Add new Wristlet
+function AddNewWristlet() {
+  var name = "testiKOODISTA"
+  var MAC = "MACKOODISTA"
+
+  db.query('INSERT INTO beacon_info (beacon_id, beacon_user) VALUES ' + '(' + "'" + MAC + "', " + "'" + name + "'" + ')'), (err, rows, fields) => {
+
+    if(!err) {
+      console.log("Added " + MAC + " With name " + name)
+    }
+
+    else {
+      console.log(err)
+      res.send(rows)
+    }
+  }
+}
+
+//this is only a test add
+app.get('/addtest', function(req, res) {
+  AddNewWristlet()
+})
