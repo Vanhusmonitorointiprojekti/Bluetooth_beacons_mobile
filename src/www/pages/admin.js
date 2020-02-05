@@ -9,11 +9,38 @@ class Admin extends Component {
         }
     }
 
+
+    componentDidMount = () => {
+        fetch('http://localhost:3000/beacon_info')
+        .then((response) => response.json())
+        .then(responseJson => {
+            this.setState({tieto: responseJson})
+            
+        })
+        
+            
+        }
+
 render() {
         return (
             <div>
-            <h1>HAAAI</h1>
-            Didney worl
+               <table>
+                    <thead>
+                        <tr>
+                            <th>Beacon user</th>
+                            <th>Beacon id</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.tieto.map(member =>
+                            <tr key={member.beacon_id}>
+                            <td>{member.beacon_user}</td>
+                            <td>{member.beacon_id}</td>
+                            </tr>
+                            )}
+                    </tbody>
+                </table>
 
             </div>
 
