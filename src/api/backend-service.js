@@ -14,7 +14,6 @@ const db = mysql.createConnection({
   user     : 'connect',
   password : 'test',
   database : 'bt_beacons',
-//  insecureAuth : true  
 });
 
 // Connect to database
@@ -27,6 +26,7 @@ db.connect((err) => {
 
 //#################################################################
 
+//Server is listening here
 var server = app.listen(4000, function() {
   var host = ip.address()
   var port = server.address().port
@@ -35,7 +35,7 @@ var server = app.listen(4000, function() {
 
 //SQL queries//
 
-//GET beacon_info
+//GET beacon_info from DB
 app.get('/beacon_info', function(req, res) {
 
   db.query('SELECT * FROM beacon_info', (err, rows, fields) => {
@@ -53,7 +53,7 @@ app.get('/beacon_info', function(req, res) {
   
 });
 
-//GET receiver_info
+//GET receiver_info from DB
 app.get('/receiver_info', function(req, res) {
 
   db.query('SELECT * FROM receiver_info', (err, rows, fields) => {
@@ -70,8 +70,7 @@ app.get('/receiver_info', function(req, res) {
   })
 });
 
-
-//GET Last 50 beacon_detections
+//GET Last 50 beacon_detections from DB
 app.get('/beacon_detections', function(req, res) {
 
   db.query('SELECT * FROM beacon_detections ORDER BY measument_time DESC limit 50;', (err, rows, fields) => {
@@ -88,9 +87,7 @@ app.get('/beacon_detections', function(req, res) {
   })
 });
 
-
-
-//Add new Wristlet
+//Functionality to add new wristlet to DB
 function AddNewWristlet() {
   var name = "testiKOODISTA"
   var MAC = "MACKOODISTA"
@@ -111,4 +108,26 @@ function AddNewWristlet() {
 //this is only a test add
 app.get('/addtest', function(req, res) {
   AddNewWristlet()
+})
+
+
+//Functionality to delete selected wristlet by MAC
+function DeleteWristlet() {
+  var MAC = "MACKOODISTA"
+
+  db.query('DELETE FROM beacon_info WHERE beacon_id = ' + '"' + MAC + '"'), (err, rows, fields) => {
+
+    if(!err) {
+      console.log(MAC + " deleted")
+    }
+
+    else {
+      console.log(err)
+      res.send(rows)
+    }
+  }
+}
+
+app.get('/deletetest', function(req, res) {
+  DeleteWristlet()
 })
