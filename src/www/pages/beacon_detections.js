@@ -36,7 +36,7 @@ render() {
                     </thead>
                     <tbody>
                         {this.state.tieto.map(member =>
-                            <tr>
+                            <tr key={member.beacon_id}>
                             <td>{member.receiver_id}</td>
                             <td>{member.beacon_id}</td>
                             <td>{member.signal_db}</td>

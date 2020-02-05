@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class Admin extends Component {
+class Beacon_info extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -63,4 +63,4 @@ const styles =  {
         
 } ;
 
-export default Admin;
+export default Beacon_info;
