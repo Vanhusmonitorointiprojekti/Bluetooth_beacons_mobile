@@ -30,7 +30,8 @@ app.get('/beacon_info', function (req, res) {
 
   db.query('SELECT * FROM beacon_info', function(err, results, fields){
     if(!err) {
-      console.log(results)
+
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.send(results);
     }
       

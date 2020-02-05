@@ -6,32 +6,27 @@ class AdminFrontPage extends Component {
         super(props)
         this.state = {
             tieto: []
-        }
+        };
     }
 
 
 componentDidMount = () => {
-    this.haeTiedot();
-    
-}
-
-haeTiedot = () => {
     let self = this;
-    fetch('localhost:3000'+'/beacon_info', {
-        method: "get"
+    fetch('http://localhost:3000/beacon_info')
+    .then((response) => response.json())
+    .then(responseJson => {
+        this.setState({tieto: responseJson})
+        console.log(this.state.tieto + "Hello")
     })
-        .then((response) =>  {
-            console.log(response)
-            var array = Array.from(response.json());
-            this.setState({tieto: array});
-        })
-       .catch((error) => {
-          this.setState({error: 'Tietojen haku ei onnistunut'});
     
-})
-}
+        
+    }
+
 
 render() {
+    const TableRow = ({ children }) => children.map(el => <tr key={el}>{el}</tr>)
+
+    
         return (
             <div>
             <div style={styles.headerStyle}>
@@ -43,7 +38,7 @@ render() {
             </div>
 
             <div>
-                <table>
+            <table>
                     <thead>
                         <tr>
                             <th>Beacon id</th>
@@ -53,6 +48,7 @@ render() {
                     <tbody>
                         {this.state.tieto.map(member =>
                             <tr key={member.beacon_id}>
+                            <td>{member.beacon_id}</td>
                             <td>{member.beacon_user}</td>
                             </tr>
                             )}
