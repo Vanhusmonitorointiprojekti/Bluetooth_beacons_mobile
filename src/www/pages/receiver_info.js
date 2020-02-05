@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Paper, Table, TableRow, TableHead, TableCell, TableBody } from '@material-ui/core';
 
 class Receiver_info extends Component {
     constructor(props) {
@@ -24,27 +24,28 @@ class Receiver_info extends Component {
 render() {
         return (
             <div>
-               <table>
-                    <thead>
-                        <tr>
-                            <th>Receiver ID</th>
-                            <th>Receiver Location</th>
-                            <th>Location type</th>
+               
+                <Paper>
+               <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Receiver ID</TableCell>
+                            <TableCell>Receiver Location</TableCell>
+                            <TableCell>Location type</TableCell>
                             
-
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                         {this.state.tieto.map(member =>
-                            <tr key={member.receiver_id}>
-                            <td>{member.receiver_id}</td>
-                            <td>{member.receiver_location}</td>
-                            <td>{member.location_type}</td>
-                            
-                            </tr>
+                            <TableRow key={member.receiver_id}>
+                            <TableCell>{member.receiver_id}</TableCell>
+                            <TableCell>{member.receiver_location}</TableCell>
+                            <TableCell>{member.location_type}</TableCell>
+                            </TableRow>
                             )}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
+                </Paper>
 
             </div>
 

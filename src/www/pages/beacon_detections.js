@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Paper, Table, TableRow, TableHead, TableCell, TableBody } from '@material-ui/core';
 
 
 class Beacon_detections extends Component {
@@ -24,27 +25,29 @@ class Beacon_detections extends Component {
 render() {
         return (
             <div>
-               <table>
-                    <thead>
-                        <tr>
-                            <th>Receiver ID</th>
-                            <th>Beacon ID</th>
-                            <th>Signal DB</th>
-                            <th>Time</th>
+                <Paper>
+               <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Receiver ID</TableCell>
+                            <TableCell>Beacon ID</TableCell>
+                            <TableCell>Signal DB</TableCell>
+                            <TableCell>Time</TableCell>
 
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                         {this.state.tieto.map(member =>
-                            <tr>
-                            <td>{member.receiver_id}</td>
-                            <td>{member.beacon_id}</td>
-                            <td>{member.signal_db}</td>
-                            <td>{member.measument_time}</td>
-                            </tr>
+                            <TableRow>
+                            <TableCell>{member.receiver_id}</TableCell>
+                            <TableCell>{member.beacon_id}</TableCell>
+                            <TableCell>{member.signal_db}</TableCell>
+                            <TableCell>{member.measument_time}</TableCell>
+                            </TableRow>
                             )}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
+                </Paper>
 
             </div>
 
