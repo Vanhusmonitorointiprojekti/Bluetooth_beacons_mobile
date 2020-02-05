@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class Admin extends Component {
+class Receiver_info extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -11,7 +11,7 @@ class Admin extends Component {
 
 
     componentDidMount = () => {
-        fetch('http://localhost:4000/beacon_info')
+        fetch('http://localhost:4000/receiver_info')
         .then((response) => response.json())
         .then(responseJson => {
             this.setState({tieto: responseJson})
@@ -27,16 +27,20 @@ render() {
                <table>
                     <thead>
                         <tr>
-                            <th>Beacon user</th>
-                            <th>Beacon id</th>
+                            <th>Receiver ID</th>
+                            <th>Receiver Location</th>
+                            <th>Location type</th>
                             
+
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.tieto.map(member =>
-                            <tr key={member.beacon_id}>
-                            <td>{member.beacon_user}</td>
-                            <td>{member.beacon_id}</td>
+                            <tr key={member.receiver_id}>
+                            <td>{member.receiver_id}</td>
+                            <td>{member.receiver_location}</td>
+                            <td>{member.location_type}</td>
+                            
                             </tr>
                             )}
                     </tbody>
@@ -63,4 +67,4 @@ const styles =  {
         
 } ;
 
-export default Admin;
+export default Receiver_info;

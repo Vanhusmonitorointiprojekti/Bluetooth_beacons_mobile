@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class Admin extends Component {
+class Beacon_detections extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -11,7 +11,7 @@ class Admin extends Component {
 
 
     componentDidMount = () => {
-        fetch('http://localhost:4000/beacon_info')
+        fetch('http://localhost:4000/beacon_detections')
         .then((response) => response.json())
         .then(responseJson => {
             this.setState({tieto: responseJson})
@@ -27,16 +27,20 @@ render() {
                <table>
                     <thead>
                         <tr>
-                            <th>Beacon user</th>
-                            <th>Beacon id</th>
-                            
+                            <th>Receiver ID</th>
+                            <th>Beacon ID</th>
+                            <th>Signal DB</th>
+                            <th>Time</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.tieto.map(member =>
-                            <tr key={member.beacon_id}>
-                            <td>{member.beacon_user}</td>
+                            <tr>
+                            <td>{member.receiver_id}</td>
                             <td>{member.beacon_id}</td>
+                            <td>{member.signal_db}</td>
+                            <td>{member.measument_time}</td>
                             </tr>
                             )}
                     </tbody>
@@ -63,4 +67,4 @@ const styles =  {
         
 } ;
 
-export default Admin;
+export default Beacon_detections;

@@ -42,6 +42,7 @@ app.get('/beacon_info', function(req, res) {
     
     if(!err) {
     console.log(rows, "\n Rows fetched from the database")
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(rows)
     }
 
@@ -60,6 +61,7 @@ app.get('/receiver_info', function(req, res) {
 
     if(!err) {
       console.log(rows, "\n Rows fetched from the database")
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.send(rows)
     }
 
@@ -77,6 +79,7 @@ app.get('/beacon_detections', function(req, res) {
 
     if(!err) {
       console.log(rows, "\n Rows fetched from the database")
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.send(rows)
     }
 
