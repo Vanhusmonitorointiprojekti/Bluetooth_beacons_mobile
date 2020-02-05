@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Paper, Table, TableRow, TableHead, TableCell, TableBody } from '@material-ui/core';
 
 class Beacon_info extends Component {
     constructor(props) {
@@ -24,23 +24,25 @@ class Beacon_info extends Component {
 render() {
         return (
             <div>
-               <table>
-                    <thead>
-                        <tr>
-                            <th>Beacon user</th>
-                            <th>Beacon id</th>
+                <Paper>
+               <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Beacon User</TableCell>
+                            <TableCell>Beacon ID</TableCell>
                             
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                         {this.state.tieto.map(member =>
-                            <tr key={member.beacon_id}>
-                            <td>{member.beacon_user}</td>
-                            <td>{member.beacon_id}</td>
-                            </tr>
+                            <TableRow key={member.beacon_id}>
+                            <TableCell>{member.beacon_user}</TableCell>
+                            <TableCell>{member.beacon_id}</TableCell>
+                            </TableRow>
                             )}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
+                </Paper>
 
             </div>
 
