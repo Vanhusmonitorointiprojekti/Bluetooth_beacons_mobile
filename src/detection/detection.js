@@ -26,23 +26,36 @@ db.connect((err) => {
 });
 
 //GET data
-app.get('/detection',(res,req)=>{
+app.get('/detection',(req,res)=>{
   
     function calcSignal() {
-    var signalA = db.query('SELECT * FROM beacon_detections where signal_db > "-50" order by measument_time desc limit 10', (err, rows, fields)=>
+
+
+    db.query('SELECT * FROM beacon_detections where signal_db > "-50" order by measument_time desc limit 10', (err, rows, fields)=>
     {
+        
         console.log(err)
-            console.log('true >', rows)
+        console.log('true >', rows)
+        
     })
-    
-    var signalB = db.query('SELECT * FROM beacon_detections where signal_db < "-50" order by measument_time desc limit 10', (err, rows, fields)=>
+    //beacon_detections.signal_db < '-50' 
+    db.query("SELECT DISTINCT beacon_detections.beacon_id, beacon_detections.signal_db, beacon_detections.measument_time, receiver_info.receiver_location, receiver_info.location_type FROM beacon_detections inner join receiver_info on beacon_detections.receiver_id = receiver_info.receiver_id where beacon_detections.beacon_id = 'e2:18:ef:c9:66:f4' order by beacon_detections.measument_time desc limit 10", (err, rows, fields)=>
    {
-        console.log(err)
-            console.log('out of range device id:  ' + rows[0].beacon_id, rows)
-        //alert('signal over 50dB')
+       
+       console.log(err)
+            console.log('testing ---- device id:  ' + rows[0].beacon_id, rows)
+        alert(rows[0].beacon_id + '\n' + rows[0].receiver_location + '\n' + rows[0].location_type + '\n' + rows[0].signal_db + '\nsignal over 50dB')
+        
     })
 
-}setInterval(calcSignal,10000);
+    //device id found in room where location type is color ... signal:_db is this..
+
+
+
+}setInterval(calcSignal,1000);
 //todo: if signal is weakening from c area and is increasing in D area then alert.
 // Ignore signal dB from allowed areas?
+
+
+
 });
