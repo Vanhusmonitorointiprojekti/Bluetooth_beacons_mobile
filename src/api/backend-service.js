@@ -5,6 +5,8 @@ var bodyparser = require('body-parser');
 var ip = require("ip")
 
 app.use(bodyparser.json());
+const cors = require('cors');
+app.use(cors());
 
 //##############This is the database connection part##############
 
@@ -90,47 +92,36 @@ app.get('/beacon_detections', function(req, res) {
   })
 });
 
-//Functionality to add new wristlet to DB
-function AddNewWristlet() {
-  var name = "testiKOODISTA"
-  var MAC = "MACKOODISTA"
+app.get('/delete/:id', function(req, res) {
+  let id = req.params.id;
 
-  db.query('INSERT INTO beacon_info (beacon_id, beacon_user) VALUES ' + '(' + "'" + MAC + "', " + "'" + name + "'" + ')'), (err, rows, fields) => {
+  db.query('DELETE FROM beacon_info WHERE beacon_id = ?', [id], function (error, result) {
 
-    if(!err) {
-      console.log("Added " + MAC + " With name " + name)
-    }
-
-    else {
-      console.log(err)
-      res.send(rows)
-    }
-  }
-}
-
-//this is only a test add
-app.get('/addtest', function(req, res) {
-  AddNewWristlet()
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.send(result)
+  })
 })
 
+const multer = require('multer');
 
-//Functionality to delete selected wristlet by MAC
-function DeleteWristlet() {
-  var MAC = "MACKOODISTA"
-
-  db.query('DELETE FROM beacon_info WHERE beacon_id = ' + '"' + MAC + '"'), (err, rows, fields) => {
-
-    if(!err) {
-      console.log(MAC + " deleted")
-    }
-
-    else {
-      console.log(err)
-      res.send(rows)
-    }
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads')
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.originalname)
   }
-}
+})
+const upload = multer({ storage: storage });
 
-app.get('/deletetest', function(req, res) {
-  DeleteWristlet()
+
+app.post('/new_beacon', upload.none(), function(req,res) {
+  
+  console.log(req.body);
+  db.query('INSERT INTO beacon_info (beacon_user, beacon_id) VALUES (?,?)',
+  [req.body.user, req.body.id], function(error, result, fields) {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.send(result)
+  })
 })

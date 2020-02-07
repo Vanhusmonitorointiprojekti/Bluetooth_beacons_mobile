@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Paper, Table, TableRow, TableHead, TableCell, TableBody } from '@material-ui/core';
+import { Paper, Table, TableRow, TableHead, TableCell, TableBody, Button } from '@material-ui/core';
+import { Link, Router, BrowserRouter, Route, Switch } from 'react-router-dom'
+import AddBeacon from './addnew_beacon'
 
 class Beacon_info extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            tieto: []
+            tieto: [],
+            navigate: false,
+            beaconi: {user: '', id: ''}
         }
     }
 
@@ -17,14 +21,35 @@ class Beacon_info extends Component {
             this.setState({tieto: responseJson})
             
         })
-        
-            
         }
+
+    handlePress = () => {
+        this.setState({navigate: true});
+    }
+
+    add_beacon = (e) => {
+        const formData = new FormData();
+        formData.append('user', this.state.user);
+        formData.append('id', this.state.id)
+        fetch('http://localhost:4000/add_beacon/', formData)
+    }
+
+
+    delete_beacon = (beacon_id) => {
+        fetch('http://localhost:4000/delete/' + beacon_id)
+        .then((response) => response.json())
+        .then((responseJson) =>
+        {
+            this.setState(prevState => ({tieto: prevState.tieto.filter(beacon =>
+                beacon.beacon_id !== beacon_id)
+            }));
+        })
+    }
 
 render() {
         return (
-            <div>
-                <Paper>
+      <div>
+            <Paper>
                <Table>
                     <TableHead>
                         <TableRow>
@@ -38,17 +63,32 @@ render() {
                             <TableRow key={member.beacon_id}>
                             <TableCell>{member.beacon_user}</TableCell>
                             <TableCell>{member.beacon_id}</TableCell>
+                            <Button onClick={this.delete_beacon.bind(this, member.beacon_id)}>Poista</Button>
                             </TableRow>
                             )}
+                            
                     </TableBody>
                 </Table>
                 </Paper>
 
-            </div>
+                <BrowserRouter>
+                    <div>
+                <nav>
+                <Link to="/AddBeacon"> Add new </Link>
+                
+                </nav>
 
-
+                <Switch>
+                    <Route path="/AddBeacon">
+                    <AddBeacon />
+                    </Route>
+                </Switch>
+                </div>
+                </BrowserRouter>
+                </div>
            
         );
+        
     }
 
 
@@ -57,7 +97,8 @@ render() {
 const styles =  {
     buttonStyle: {
         width: 80,
-        height: 80
+        height: 80,
+        
     },
     headerStyle: {
         textAlign: 'center'
