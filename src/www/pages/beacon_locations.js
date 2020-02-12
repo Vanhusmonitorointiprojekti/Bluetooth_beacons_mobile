@@ -29,8 +29,8 @@ render() {
                <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Receiver ID</TableCell>
                             <TableCell>Beacon ID</TableCell>
+                            <TableCell>Receiver ID</TableCell>
                             <TableCell>Signal DB</TableCell>
                             <TableCell>Time</TableCell>
                         </TableRow>
@@ -38,8 +38,8 @@ render() {
                     <TableBody>
                         {this.state.tieto.map(member =>
                             <TableRow key={member.measument_time}>
-                            <TableCell>{member.receiver_id}</TableCell>
                             <TableCell>{member.beacon_user}</TableCell>
+                            <TableCell>{member.receiver_id}</TableCell>
                             <TableCell>{member.signal_db}</TableCell>
                             <TableCell>{member.measument_time}</TableCell>
                             </TableRow>
