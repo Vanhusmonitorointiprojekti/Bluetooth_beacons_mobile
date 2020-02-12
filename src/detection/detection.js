@@ -61,7 +61,7 @@ app.get('/detections/all',(req,res)=>{
         SELECT DISTINCT beacon_detections.beacon_id, beacon_detections.signal_db, beacon_detections.measument_time, receiver_info.receiver_location, receiver_info.location_type \
         FROM beacon_detections \
             INNER JOIN receiver_info on beacon_detections.receiver_id = receiver_info.receiver_id \
-        where beacon_detections.beacon_id = "e2:18:ef:c9:66:f4" \
+        where beacon_detections.beacon_id = "e2:18:git ef:c9:66:f4" \
         ORDER BY beacon_detections.measument_time DESC \
         LIMIT 10 \
         ', 
