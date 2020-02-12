@@ -92,6 +92,24 @@ app.get('/beacon_detections', function(req, res) {
   })
 });
 
+app.get('/beacon_locations', function(req, res){
+
+  db.query('SELECT * FROM beacon_detections WHERE beacon_id = "e2:e3:23:d1:b0:54" \
+  AND SELECT * FROM beacon_detections WHERE beacon_id= "d6:2c:ca:c0:d4:9c" ORDER BY measument_time DESC limit 1', (err, rows, fields) =>{
+    if (!err){
+      console.log(rows, "\n Rows fetched from the databese")
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(rows)
+    }
+    else{
+      console.log(err)
+      res.send(err)
+    }
+  })
+
+
+});
+
 app.get('/delete/:id', function(req, res) {
   let id = req.params.id;
 
