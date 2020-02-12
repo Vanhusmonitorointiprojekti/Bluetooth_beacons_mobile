@@ -9,7 +9,7 @@ class Beacon_info extends Component {
         this.state = {
             tieto: [],
             navigate: false,
-            beaconi: {user: '', id: ''}
+            
         }
     }
 
@@ -27,12 +27,7 @@ class Beacon_info extends Component {
         this.setState({navigate: true});
     }
 
-    add_beacon = (e) => {
-        const formData = new FormData();
-        formData.append('user', this.state.user);
-        formData.append('id', this.state.id)
-        fetch('http://localhost:4000/add_beacon/', formData)
-    }
+
 
 
     delete_beacon = (beacon_id) => {

@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
+import { Alert } from 'react-alert';
 
 
 
@@ -26,7 +27,13 @@ class AddBeacon extends Component
     add_beacon = (e) => {
         const formData = new FormData();
         formData.append('user', this.state.user);
-        formData.append('id', this.state.id)
+        formData.append('id', this.state.id);
+
+        if (this.state.user === '' || this.state.user.match(/^ *$/) || this.state.id === '' || this.state.id.match(/^ *$/)) {
+            alert('Beacon user tai Beacon ID ei voi olla tyhjä')
+        }
+        else 
+
         axios.post('http://localhost:4000/new_beacon', formData)
     }
 
