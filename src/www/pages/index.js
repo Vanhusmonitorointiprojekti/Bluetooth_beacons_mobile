@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Beacon_detections from './beacon_detections.js';
 import Receiver_info from './receiver_info.js';
 import Beacon_info from './beacon_info.js';
+import Beacon_locations from './beacon_locations.js';
 
 class AdminFrontPage extends Component{
   constructor(props){
@@ -25,12 +26,14 @@ render(){
             <Tab label="Beacon info"  />
             <Tab label="Beacon detections" />
             <Tab label="Receiver info" />
+            <Tab label="Beacon locations" />
            
           </Tabs>
         </AppBar>
         {this.state.value === 0 && <Beacon_info />}
         {this.state.value === 1 && <Beacon_detections />}
-        {this.state.value == 2 && <Receiver_info />}
+        {this.state.value === 2 && <Receiver_info />}
+        {this.state.value === 3 && <Beacon_locations />}
       </div>
     </div>
   )
