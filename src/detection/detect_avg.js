@@ -65,40 +65,48 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                 '\
                 SELECT( \
                     \
-                    SELECT AVG(signal_db) \
+                    SELECT signal_db \
                     FROM beacon_detections \
                     WHERE receiver_id = "Receiver1" \
                     AND beacon_id = "e2:18:ef:c9:66:f4" \
                     ORDER BY measument_time DESC \
-                    LIMIT 3 ) AS AVG_Receiver1_Ranneke4,\
+                    LIMIT 1 ) AS AVG_Receiver1_Ranneke4,\
                     \
                     ( \
-                    SELECT AVG(signal_db) \
+                    SELECT signal_db \
                     FROM beacon_detections \
                     WHERE receiver_id = "Receiver2" \
                     AND beacon_id = "e2:18:ef:c9:66:f4" \
                     ORDER BY measument_time DESC \
-                    LIMIT 3 ) AS AVG_Receiver2_Ranneke4,\
+                    LIMIT 1 ) AS AVG_Receiver2_Ranneke4,\
                     \
                     ( \
-                    SELECT AVG(signal_db) \
+                    SELECT signal_db \
                     FROM beacon_detections \
                     WHERE receiver_id = "Receiver3" \
                     AND beacon_id = "e2:18:ef:c9:66:f4" \
                     ORDER BY measument_time DESC \
-                    LIMIT 3 ) AS AVG_Receiver3_Ranneke4\
+                    LIMIT 1 ) AS AVG_Receiver3_Ranneke4\
                     \
                 ',
 
                 (err, rows, fields)=> {
 
                 if(!err) {
-                  console.log(rows, "\n AVG values for selected wristband")
+                    if (rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
+                        console.log("RECEIVER1 VAHVIN")
+                    }
+                    if (rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4 && rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
+                        console.log("RECEIVER2 VAHVIN")
+                    }
+                    if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
+                        console.log("RECEIVER3 VAHVIN")
+                    }
                 }
             
                 else {
                   console.log(err)
                 }                
             })
-            }setInterval(avg_ranneke1, 2000);
+            }setInterval(avg_ranneke1, 1000);
     });
