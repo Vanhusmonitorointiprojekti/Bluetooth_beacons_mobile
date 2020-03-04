@@ -121,7 +121,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                     SELECT signal_db \
                     FROM beacon_detections \
                     WHERE receiver_id = "Receiver2" \
-                    AND beacon_id = "d6:2c:ca:c0:d4:9c \
+                    AND beacon_id = "d6:2c:ca:c0:d4:9c" \
                     ORDER BY measument_time DESC \
                     LIMIT 1 ) AS AVG_Receiver2_Ranneke2,\
                     \
@@ -129,7 +129,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                     SELECT signal_db \
                     FROM beacon_detections \
                     WHERE receiver_id = "Receiver3" \
-                    AND beacon_id = "d6:2c:ca:c0:d4:9c \
+                    AND beacon_id = "d6:2c:ca:c0:d4:9c" \
                     ORDER BY measument_time DESC \
                     LIMIT 1 ) AS AVG_Receiver3_Ranneke2 \
                     \
@@ -142,7 +142,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                 }
             
                 else {
-                  console.log(err)
+                    console.log(err)
                 }                
             })
             }setInterval(avg_ranneke2, 1000);
