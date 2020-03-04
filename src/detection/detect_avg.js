@@ -91,8 +91,28 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
             (err, rows, fields)=> {
 
-            if(!err) {
-                console.log(rows)
+                if(!err) {
+                    if(rows[0].AVG_Receiver1_Ranneke1 == null) {
+                        rows[0].AVG_Receiver1_Ranneke1 = -999;
+                    }
+
+                    if(rows[0].AVG_Receiver2_Ranneke1 == null) {
+                        rows[0].AVG_Receiver2_Ranneke1 = -999;
+                    }
+
+                    if(rows[0].AVG_Receiver3_Ranneke1 == null) {
+                        rows[0].AVG_Receiver3_Ranneke1 = -999;
+                    }
+
+                    if (rows[0].AVG_Receiver1_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver1_Ranneke1 > rows[0].AVG_Receiver3_Ranneke1) {
+                        console.log("RECEIVER1 VAHVIN") 
+                    }
+                    if (rows[0].AVG_Receiver2_Ranneke1 > rows[0].AVG_Receiver1_Ranneke1 && rows[0].AVG_Receiver2_Ranneke1 > rows[0].AVG_Receiver3_Ranneke1) {
+                        console.log("RECEIVER2 VAHVIN")
+                    }
+                    if (rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver1_Ranneke2) {
+                        console.log("RECEIVER3 VAHVIN")
+                    }
             }
         
             else {
@@ -137,8 +157,28 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
                 (err, rows, fields)=> {
 
-                if(!err) {
-                    console.log(rows)
+                    if(!err) {
+                        if(rows[0].AVG_Receiver1_Ranneke2 == null) {
+                            rows[0].AVG_Receiver1_Ranneke2 = -999;
+                        }
+    
+                        if(rows[0].AVG_Receiver2_Ranneke2 == null) {
+                            rows[0].AVG_Receiver2_Ranneke2 = -999;
+                        }
+    
+                        if(rows[0].AVG_Receiver3_Ranneke2 == null) {
+                            rows[0].AVG_Receiver3_Ranneke2 = -999;
+                        }
+    
+                        if (rows[0].AVG_Receiver1_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver1_Ranneke2 > rows[0].AVG_Receiver3_Ranneke2) {
+                            console.log("RECEIVER1 VAHVIN") 
+                        }
+                        if (rows[0].AVG_Receiver2_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2 && rows[0].AVG_Receiver2_Ranneke2 > rows[0].AVG_Receiver3_Ranneke2) {
+                            console.log("RECEIVER2 VAHVIN")
+                        }
+                        if (rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2) {
+                            console.log("RECEIVER3 VAHVIN")
+                        }
                 }
             
                 else {
@@ -183,15 +223,35 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
             (err, rows, fields)=> {
 
-            if(!err) {
-                console.log(rows)
+                if(!err) {
+                    if(rows[0].AVG_Receiver1_Ranneke3 == null) {
+                        rows[0].AVG_Receiver1_Ranneke3 = -999;
+                    }
+
+                    if(rows[0].AVG_Receiver2_Ranneke3 == null) {
+                        rows[0].AVG_Receiver2_Ranneke3 = -999;
+                    }
+
+                    if(rows[0].AVG_Receiver2_Ranneke3 == null) {
+                        rows[0].AVG_Receiver2_Ranneke3 = -999;
+                    }
+
+                    if (rows[0].AVG_Receiver1_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver1_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
+                        console.log("RECEIVER1 VAHVIN") 
+                    }
+                    if (rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3 && rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
+                        console.log("RECEIVER2 VAHVIN")
+                    }
+                    if (rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3) {
+                        console.log("RECEIVER3 VAHVIN")
+                    }
             }
         
             else {
               console.log(err)
             }                
         })
-        }setInterval(avg_ranneke3, 100);
+        }setInterval(avg_ranneke3, 1000);
 });
 
     //GET ranneke4 avg detections
@@ -223,27 +283,39 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                     WHERE receiver_id = "Receiver3" \
                     AND beacon_id = "e2:18:ef:c9:66:f4" \
                     ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver3_Ranneke4\
+                    LIMIT 1 ) AS AVG_Receiver3_Ranneke4 \
                     \
                 ',
 
                 (err, rows, fields)=> {
 
                 if(!err) {
-                    if (rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
-                        console.log("RECEIVER1 VAHVIN")
-                    }
-                    if (rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4 && rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
-                        console.log("RECEIVER2 VAHVIN")
-                    }
-                    if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
-                        console.log("RECEIVER3 VAHVIN")
-                    }
+                        if(rows[0].AVG_Receiver1_Ranneke4 == null) {
+                            rows[0].AVG_Receiver1_Ranneke4 = -999;
+                        }
+
+                        if(rows[0].AVG_Receiver2_Ranneke4 == null) {
+                            rows[0].AVG_Receiver2_Ranneke4 = -999;
+                        }
+
+                        if(rows[0].AVG_Receiver2_Ranneke4 == null) {
+                            rows[0].AVG_Receiver2_Ranneke4 = -999;
+                        }
+
+                        if (rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
+                            console.log("RECEIVER1 VAHVIN") 
+                        }
+                        if (rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4 && rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
+                            console.log("RECEIVER2 VAHVIN")
+                        }
+                        if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
+                            console.log("RECEIVER3 VAHVIN")
+                        }
                 }
-            
+
                 else {
                   console.log(err)
                 }                
             })
-            }setInterval(avg_ranneke4, 1000);
+        }setInterval(avg_ranneke4, 1000);
     });
