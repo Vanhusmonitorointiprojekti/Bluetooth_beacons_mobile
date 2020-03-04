@@ -7,6 +7,9 @@ var app = express();
 
 app.use(bodyparser.json());
 
+//This is the alert from red areas
+global.red_alert = 'Wristlet in red area'
+
 //Connection config
 const db = mysql.createConnection({
   host     : '172.28.170.116',
@@ -91,6 +94,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
             (err, rows, fields)=> {
 
+                //check if database contains null values and change them to -999 ("out of range")
                 if(!err) {
                     if(rows[0].AVG_Receiver1_Ranneke1 == null) {
                         rows[0].AVG_Receiver1_Ranneke1 = -999;
@@ -104,13 +108,15 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                         rows[0].AVG_Receiver3_Ranneke1 = -999;
                     }
 
+                //check which signal_db is strongest and print it
                     if (rows[0].AVG_Receiver1_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver1_Ranneke1 > rows[0].AVG_Receiver3_Ranneke1) {
-                        console.log("RECEIVER1 VAHVIN") 
+                        console.log("RECEIVER1 VAHVIN")
+                        alert('Ranneke 1 ' + red_alert)
                     }
-                    if (rows[0].AVG_Receiver2_Ranneke1 > rows[0].AVG_Receiver1_Ranneke1 && rows[0].AVG_Receiver2_Ranneke1 > rows[0].AVG_Receiver3_Ranneke1) {
+                    else if (rows[0].AVG_Receiver2_Ranneke1 > rows[0].AVG_Receiver1_Ranneke1 && rows[0].AVG_Receiver2_Ranneke1 > rows[0].AVG_Receiver3_Ranneke1) {
                         console.log("RECEIVER2 VAHVIN")
                     }
-                    if (rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver1_Ranneke2) {
+                    else if (rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver1_Ranneke2) {
                         console.log("RECEIVER3 VAHVIN")
                     }
             }
@@ -119,7 +125,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
               console.log(err)
             }                
         })
-        }setInterval(avg_ranneke1, 100);
+        }setInterval(avg_ranneke1, 1000);
 });
 
     //GET ranneke4 avg detections
@@ -156,7 +162,8 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                 ',
 
                 (err, rows, fields)=> {
-
+                
+                    //check if database contains null values and change them to -999 ("out of range")
                     if(!err) {
                         if(rows[0].AVG_Receiver1_Ranneke2 == null) {
                             rows[0].AVG_Receiver1_Ranneke2 = -999;
@@ -171,12 +178,13 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                         }
     
                         if (rows[0].AVG_Receiver1_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver1_Ranneke2 > rows[0].AVG_Receiver3_Ranneke2) {
-                            console.log("RECEIVER1 VAHVIN") 
+                            console.log("RECEIVER1 VAHVIN")
+                            alert('Ranneke 2 ' + red_alert) 
                         }
-                        if (rows[0].AVG_Receiver2_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2 && rows[0].AVG_Receiver2_Ranneke2 > rows[0].AVG_Receiver3_Ranneke2) {
+                        else if (rows[0].AVG_Receiver2_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2 && rows[0].AVG_Receiver2_Ranneke2 > rows[0].AVG_Receiver3_Ranneke2) {
                             console.log("RECEIVER2 VAHVIN")
                         }
-                        if (rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2) {
+                        else if (rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2) {
                             console.log("RECEIVER3 VAHVIN")
                         }
                 }
@@ -223,6 +231,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
             (err, rows, fields)=> {
 
+                //check if database contains null values and change them to -999 ("out of range")
                 if(!err) {
                     if(rows[0].AVG_Receiver1_Ranneke3 == null) {
                         rows[0].AVG_Receiver1_Ranneke3 = -999;
@@ -232,17 +241,18 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                         rows[0].AVG_Receiver2_Ranneke3 = -999;
                     }
 
-                    if(rows[0].AVG_Receiver2_Ranneke3 == null) {
-                        rows[0].AVG_Receiver2_Ranneke3 = -999;
+                    if(rows[0].AVG_Receiver3_Ranneke3 == null) {
+                        rows[0].AVG_Receiver3_Ranneke3 = -999;
                     }
 
                     if (rows[0].AVG_Receiver1_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver1_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
-                        console.log("RECEIVER1 VAHVIN") 
+                        console.log("RECEIVER1 VAHVIN")
+                        alert('Ranneke 3 ' + red_alert) 
                     }
-                    if (rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3 && rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
+                    else if (rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3 && rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
                         console.log("RECEIVER2 VAHVIN")
                     }
-                    if (rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3) {
+                    else if (rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3) {
                         console.log("RECEIVER3 VAHVIN")
                     }
             }
@@ -289,6 +299,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
                 (err, rows, fields)=> {
 
+                //check if database contains null values and change them to -999 ("out of range")
                 if(!err) {
                         if(rows[0].AVG_Receiver1_Ranneke4 == null) {
                             rows[0].AVG_Receiver1_Ranneke4 = -999;
@@ -303,14 +314,16 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                         }
 
                         if (rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
-                            console.log("RECEIVER1 VAHVIN") 
+                            console.log("RECEIVER1 VAHVIN")
+                            alert('Ranneke 4 ' + red_alert)  
                         }
-                        if (rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4 && rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
+                        else if (rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4 && rows[0].AVG_Receiver2_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
                             console.log("RECEIVER2 VAHVIN")
                         }
-                        if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
+                        else if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
                             console.log("RECEIVER3 VAHVIN")
                         }
+                        console.log(rows)
                 }
 
                 else {
