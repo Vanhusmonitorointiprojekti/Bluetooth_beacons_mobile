@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 var alert = require('alert-node');
 const bodyparser = require('body-parser');
+const io = require('socket.io')();
 
 var app = express();
 
@@ -19,7 +20,7 @@ const db = mysql.createConnection({
 });
 
 //App, listen this port
-app.listen(4001,()=>console.log('Service is running at port no : 4001'));
+var server = app.listen(4001,()=>console.log('Service is running at port no : 4001'));
 
 // Connect to database
     db.connect((err) => {
@@ -45,7 +46,7 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
         db.query(
             '\
             SELECT * \
-            FROM beacon_detections where signal_db > "-50" \
+            FROM beacon_detectionsno \
             order by measument_time desc limit 10 \
             ',
 
@@ -251,6 +252,10 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                     }
                     else if (rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3 && rows[0].AVG_Receiver2_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
                         console.log("RECEIVER2 VAHVIN")
+                        res.setHeader('Access-Control-Allow-Origin', '*');
+                        res.json({ receiver: "RECEIVER2 VAHVIN" })
+
+                        setTimeout()
                     }
                     else if (rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3) {
                         console.log("RECEIVER3 VAHVIN")
@@ -323,7 +328,6 @@ app.listen(4001,()=>console.log('Service is running at port no : 4001'));
                         else if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
                             console.log("RECEIVER3 VAHVIN")
                         }
-                        console.log(rows)
                 }
 
                 else {
