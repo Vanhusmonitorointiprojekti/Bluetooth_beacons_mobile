@@ -3,30 +3,12 @@ var mysql = require('mysql');
 var app = express();
 var bodyparser = require('body-parser');
 var ip = require("ip")
+const database = require('../database/connect_to_db')
+const queries = require('../database/queries')
 
 app.use(bodyparser.json());
 const cors = require('cors');
 app.use(cors());
-
-//##############This is the database connection part##############
-
-//Connection config
-const db = mysql.createConnection({
-  host     : '172.28.170.116',
-  user     : 'connect',
-  password : 'test',
-  database : 'bt_beacons',
-});
-
-// Connect to database
-db.connect((err) => {
-  if(err){
-      throw err;
-  }
-  console.log('\nConnection established with the database');
-});
-
-//#################################################################
 
 //Server is listening here
 var server = app.listen(4000, function() {
@@ -40,7 +22,7 @@ var server = app.listen(4000, function() {
 //GET beacon_info from DB
 app.get('/beacon_info', function(req, res) {
 
-  db.query('SELECT * FROM beacon_info', (err, rows, fields) => {
+  db.query(global.GET_beacon_info, (err, rows, fields) => {
     
     if(!err) {
     console.log(rows, "\n Rows fetched from the database")
@@ -59,7 +41,7 @@ app.get('/beacon_info', function(req, res) {
 //GET receiver_info from DB
 app.get('/receiver_info', function(req, res) {
 
-  db.query('SELECT * FROM receiver_info', (err, rows, fields) => {
+  db.query(global.GET_receiver_info, (err, rows, fields) => {
 
     if(!err) {
       console.log(rows, "\n Rows fetched from the database")
@@ -77,7 +59,7 @@ app.get('/receiver_info', function(req, res) {
 //GET Last 50 beacon_detections from DB
 app.get('/beacon_detections', function(req, res) {
 
-  db.query('SELECT * FROM beacon_detections ORDER BY measument_time DESC limit 50;', (err, rows, fields) => {
+  db.query(global.GET_last_beacon_detections, (err, rows, fields) => {
 
     if(!err) {
       console.log(rows, "\n Rows fetched from the database")
@@ -95,7 +77,7 @@ app.get('/beacon_detections', function(req, res) {
 app.get('/delete/:id', function(req, res) {
   let id = req.params.id;
 
-  db.query('DELETE FROM beacon_info WHERE beacon_id = ?', [id], function (error, result) {
+  db.query(global_DELETE_beacon, [id], function (error, result) {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(result)
@@ -118,7 +100,7 @@ const upload = multer({ storage: storage });
 app.post('/new_beacon', upload.none(), function(req,res) {
   
   console.log(req.body);
-  db.query('INSERT INTO beacon_info (beacon_user, beacon_id) VALUES (?,?)',
+  db.query(global_INSERT_beacon,
   [req.body.user, req.body.id], function(error, result, fields) {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
