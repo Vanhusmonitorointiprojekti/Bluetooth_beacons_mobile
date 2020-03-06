@@ -1,8 +1,8 @@
 const express = require('express');
-const mysql = require('mysql');
 var alert = require('alert-node');
 const bodyparser = require('body-parser');
-const io = require('socket.io')();
+const database = require('../database/connect_to_db')
+const queries = require('../database/queries')
 
 var app = express();
 
@@ -11,24 +11,9 @@ app.use(bodyparser.json());
 //This is the alert from red areas
 global.red_alert = 'Wristlet in red area'
 
-//Connection config
-const db = mysql.createConnection({
-  host     : '172.28.170.116',
-  user     : 'connect',
-  password : 'test',
-  database : 'bt_beacons',
-});
 
 //App, listen this port
 var server = app.listen(4001,()=>console.log('Service is running at port no : 4001'));
-
-// Connect to database
-    db.connect((err) => {
-    if(err){
-        throw err;
-    }
-    console.log('Connection established with the database');
-    });
 
     //Write instructions to / -page
     app.get('/', (req, res) => {
@@ -44,11 +29,8 @@ var server = app.listen(4001,()=>console.log('Service is running at port no : 40
         function calcSignal() {
 
         db.query(
-            '\
-            SELECT * \
-            FROM beacon_detectionsno \
-            order by measument_time desc limit 10 \
-            ',
+            
+            global.GET_all_detections,
 
             (err, rows, fields)=>
         {
@@ -65,33 +47,8 @@ var server = app.listen(4001,()=>console.log('Service is running at port no : 40
     function avg_ranneke1() {
 
         db.query(
-            '\
-            SELECT( \
-                \
-                SELECT signal_db \
-                FROM beacon_detections \
-                WHERE receiver_id = "Receiver1" \
-                AND beacon_id = "e2:e3:23:d1:b0:54" \
-                ORDER BY measument_time DESC \
-                LIMIT 1 ) AS AVG_Receiver1_Ranneke1,\
-                \
-                ( \
-                SELECT signal_db \
-                FROM beacon_detections \
-                WHERE receiver_id = "Receiver2" \
-                AND beacon_id = "e2:e3:23:d1:b0:54" \
-                ORDER BY measument_time DESC \
-                LIMIT 1 ) AS AVG_Receiver2_Ranneke1,\
-                \
-                ( \
-                SELECT signal_db \
-                FROM beacon_detections \
-                WHERE receiver_id = "Receiver3" \
-                AND beacon_id = "e2:e3:23:d1:b0:54" \
-                ORDER BY measument_time DESC \
-                LIMIT 1 ) AS AVG_Receiver3_Ranneke1 \
-                \
-            ',
+
+            global.GET_detections_ranneke1,
 
             (err, rows, fields)=> {
 
@@ -134,33 +91,8 @@ var server = app.listen(4001,()=>console.log('Service is running at port no : 40
         function avg_ranneke2() {
 
             db.query(
-                '\
-                SELECT( \
-                    \
-                    SELECT signal_db \
-                    FROM beacon_detections \
-                    WHERE receiver_id = "Receiver1" \
-                    AND beacon_id = "d6:2c:ca:c0:d4:9c" \
-                    ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver1_Ranneke2,\
-                    \
-                    ( \
-                    SELECT signal_db \
-                    FROM beacon_detections \
-                    WHERE receiver_id = "Receiver2" \
-                    AND beacon_id = "d6:2c:ca:c0:d4:9c" \
-                    ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver2_Ranneke2,\
-                    \
-                    ( \
-                    SELECT signal_db \
-                    FROM beacon_detections \
-                    WHERE receiver_id = "Receiver3" \
-                    AND beacon_id = "d6:2c:ca:c0:d4:9c" \
-                    ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver3_Ranneke2 \
-                    \
-                ',
+
+                global.GET_detections_ranneke2,
 
                 (err, rows, fields)=> {
                 
@@ -202,33 +134,8 @@ var server = app.listen(4001,()=>console.log('Service is running at port no : 40
     function avg_ranneke3() {
 
         db.query(
-            '\
-            SELECT( \
-                \
-                SELECT signal_db \
-                FROM beacon_detections \
-                WHERE receiver_id = "Receiver1" \
-                AND beacon_id = "f2:36:00:21:c0:50" \
-                ORDER BY measument_time DESC \
-                LIMIT 1 ) AS AVG_Receiver1_Ranneke3,\
-                \
-                ( \
-                SELECT signal_db \
-                FROM beacon_detections \
-                WHERE receiver_id = "Receiver2" \
-                AND beacon_id = "f2:36:00:21:c0:50" \
-                ORDER BY measument_time DESC \
-                LIMIT 1 ) AS AVG_Receiver2_Ranneke3,\
-                \
-                ( \
-                SELECT signal_db \
-                FROM beacon_detections \
-                WHERE receiver_id = "Receiver3" \
-                AND beacon_id = "f2:36:00:21:c0:50" \
-                ORDER BY measument_time DESC \
-                LIMIT 1 ) AS AVG_Receiver3_Ranneke3\
-                \
-            ',
+
+            global.GET_detections_ranneke3,
 
             (err, rows, fields)=> {
 
@@ -274,33 +181,8 @@ var server = app.listen(4001,()=>console.log('Service is running at port no : 40
         function avg_ranneke4() {
 
             db.query(
-                '\
-                SELECT( \
-                    \
-                    SELECT signal_db \
-                    FROM beacon_detections \
-                    WHERE receiver_id = "Receiver1" \
-                    AND beacon_id = "e2:18:ef:c9:66:f4" \
-                    ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver1_Ranneke4,\
-                    \
-                    ( \
-                    SELECT signal_db \
-                    FROM beacon_detections \
-                    WHERE receiver_id = "Receiver2" \
-                    AND beacon_id = "e2:18:ef:c9:66:f4" \
-                    ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver2_Ranneke4,\
-                    \
-                    ( \
-                    SELECT signal_db \
-                    FROM beacon_detections \
-                    WHERE receiver_id = "Receiver3" \
-                    AND beacon_id = "e2:18:ef:c9:66:f4" \
-                    ORDER BY measument_time DESC \
-                    LIMIT 1 ) AS AVG_Receiver3_Ranneke4 \
-                    \
-                ',
+                
+                global.GET_detections_ranneke4,
 
                 (err, rows, fields)=> {
 
