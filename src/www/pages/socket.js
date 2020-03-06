@@ -1,37 +1,68 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+import {
+  Paper,
+  Table,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableBody
+} from "@material-ui/core";
 import socketIOClient from "socket.io-client";
-import { Paper, Table, TableRow, TableHead, TableCell, TableBody } from '@material-ui/core';
 
 class Socket extends Component {
-  constructor() {
-      super();
-      this.state = {
-          response: [],
-          endpoint: 'http://127.0.0.1:4001'
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      response: false,
+      endpoint: "http://127.0.0.1:4001",
+      tieto: []
+    };
   }
 
   componentDidMount() {
-      const {endpoint} = this.state;
-      //connect io client to specified endpoint
-      const socket = socketIOClient(endpoint);
-      //listen data -> set to state
-      socket.on("outgoing data", data => this.setState({response: data.num}));
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ tieto: responseJson });
+
+        const { endpoint } = this.state;
+        const socket = socketIOClient(endpoint);
+        socket.on("emitSocket", data => this.setState({ response: data }));
+      });
   }
 
   render() {
-      const {response} = this.state;
-      return (
-          <div style={{textAlign: "center"}}>
-              <Paper>
-                  <h1 style={{fontSize: 20}} value={response}>{this.state.response}</h1>
-                  <h2>Currently only counts to 100 </h2>
-                  <h3>TODO: Do not overwrite values, add to list to display detections</h3>
-                  <h4>Start socketio.js to start counting or reset it</h4>
-                  </Paper>
-      
-          </div>
-      )
+    const { response } = this.state;
+    return (
+      <div style={{ textAlign: "center" }}>
+        <Paper>
+          {response ? (
+            <p>   {response} </p>
+          ) : (
+            <p>Changes after load is complete</p>
+          )}
+
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>rofl</TableCell>
+                <TableCell>lmao</TableCell>
+                <TableCell>ayy</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.state.tieto.map(member => (
+                <TableRow key={member.id}>
+                  <TableCell>{member.title}</TableCell>
+                  <TableCell>{member.body}</TableCell>
+                  <TableCell>{member.userId}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
+    );
   }
 }
 

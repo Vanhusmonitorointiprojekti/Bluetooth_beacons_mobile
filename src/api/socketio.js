@@ -1,37 +1,38 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-//express required with http server, io middleware
-//create listening server
-const app = express();
-const server = http.createServer(app);
+const axios = require("axios");
+
 const port = 4001;
-server.listen(port, () => console.log(`Listening on port ${port}`));
-app.get('/*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-//new connection named socket
-const io = socketIo(server);
+const app = express();
+
+const httpServer = http.createServer(app);
+const io = socketIo(httpServer);
+
+let interval;
+
+//not so many connections
 io.on("connection", socket => {
-    console.log("New client connected");
-
-    //data we send named 'data'
-    socket.on("incoming data", (data)=>{
-        //emit&broadcast   num to help ease logging, sub to 'outgoing data' topic
-       socket.broadcast.emit("outgoing data", {num: data});
-    });
-
-    //disconnection log
-    socket.on("disconnect", () => console.log("Client disconnected"));
+  console.log("New client connected");
+  if (interval) {
+    clearInterval(interval);
+  }
+  interval = setInterval(() => emit(socket), 10000);
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
 });
 
-let socket = require('socket.io-client')('http://127.0.0.1:4001');
+const emit = async socket => {
+  try {
+    const res = await axios.get(
+      "hhttps://jsonplaceholder.typicode.com/posts/1"
+    );
+    // -> data structure for socket.emit ->  topic name you emit -> res. -> data. -> json attribute/value
+    socket.emit("emitSocket", res.data.body);
+  } catch (error) {
+    console.error(`Error: ${error.code}`);
+  }
+};
 
-let info = 0;
-//data here
-setInterval(function () {
-    if(info<100)
-    info++
-    socket.emit('incoming data', info);
-}, 1000);
-
-})
+httpServer.listen(port, () => console.log(`Listening on port ${port}`));
