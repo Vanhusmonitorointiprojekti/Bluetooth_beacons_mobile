@@ -1,19 +1,15 @@
 const express = require('express');
-var alert = require('alert-node');
+const app = express();
+const alert = require('alert-node');
 const bodyparser = require('body-parser');
+app.use(bodyparser.json());
 const database = require('../database/connect_to_db')
 const queries = require('../database/queries')
-
-var app = express();
-
-app.use(bodyparser.json());
-
-//This is the alert from red areas
-global.red_alert = 'Wristlet in red area'
-
+const alerting = require('../detection/alerts')
 
 //App, listen this port
-var server = app.listen(4001,()=>console.log('Service is running at port no : 4001'));
+expressPort = 4001;
+var server = app.listen(expressPort,()=>console.log('\nExpress is running at port no : ' + expressPort));
 
     //Write instructions to / -page
     app.get('/', (req, res) => {
