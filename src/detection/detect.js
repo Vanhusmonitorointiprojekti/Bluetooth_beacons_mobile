@@ -7,13 +7,15 @@ const database = require('../database/connect_to_db')
 const queries = require('../database/queries')
 const alerting = require('../detection/alerts')
 const multer = require('multer');
+const socketServer = require('../socketio/socketio')
 
 //This is the backend -code which is required to run with front-end.
 //Component handles all the end-point requests and database queries.
 
 
 //App, listen this port
-expressPort = 4001;
+socketServer.start()
+expressPort = 4000;
 var server = app.listen(expressPort,()=>console.log('\nExpress is running at port no : ' + expressPort));
 
     //Write instructions to '/' -page
