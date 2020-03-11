@@ -15,7 +15,14 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
     app.get('/', (req, res) => {
         function writeInstructions() {
             res.send(
-            'GET all detections -> /detections/all')
+            'GET receiver info -> /receiver_info' + '\n' +
+            'GET last 50 beacon detections -> /beacon_detections' + '\n' +
+            'GET wristlet 1 detections -> /detections/ranneke1' + '\n' +
+            'GET wristlet 1 detections -> /detections/ranneke2' + '\n' +
+            'GET wristlet 1 detections -> /detections/ranneke3' + '\n' +
+            'GET wristlet 1 detections -> /detections/ranneke4' + '\n' +
+            'DELETE a wristled by id -> /delete/(id_here)' + '\n'
+            )
         }
         writeInstructions()
     });
