@@ -20,23 +20,52 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
         writeInstructions()
     });
 
-    //GET all detections
-    app.get('/detections/all',(req,res)=>{
-        function calcSignal() {
+    //GET receiver_info from DB
+    app.get('/receiver_info', function(req, res) {
 
-        db.query(
-            
-            global.GET_all_detections,
-
-            (err, rows, fields)=>
-        {
-            
+        db.query(global.GET_receiver_info, (err, rows, fields) => {
+    
+        if(!err) {
+            console.log(rows, "\n Rows fetched from the database")
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.send(rows)
+        }
+    
+        else {
             console.log(err)
-            console.log(rows)
-            
+            res.send(err)
+        }
         })
-        }setInterval(calcSignal,1000);
     });
+
+
+    //GET Last 50 beacon_detections from DB
+    app.get('/beacon_detections', function(req, res) {
+
+        db.query(global.GET_last_beacon_detections, (err, rows, fields) => {
+    
+        if(!err) {
+            console.log(rows, "\n Rows fetched from the database")
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.send(rows)
+        }
+    
+        else {
+            console.log(err)
+            res.send(err)
+        }
+        })
+    });
+
+    app.get('/delete/:id', function(req, res) {
+        let id = req.params.id;
+      
+        db.query(global_DELETE_beacon, [id], function (error, result) {
+      
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.send(result)
+        })
+    })
 
     //GET ranneke3 avg detections
    app.get('/detections/ranneke1',(req,res)=>{
