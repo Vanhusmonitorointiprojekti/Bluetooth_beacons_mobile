@@ -228,8 +228,8 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                             rows[0].AVG_Receiver2_Ranneke4 = -999;
                         }
 
-                        if(rows[0].AVG_Receiver2_Ranneke4 == null) {
-                            rows[0].AVG_Receiver2_Ranneke4 = -999;
+                        if(rows[0].AVG_Receiver3_Ranneke4 == null) {
+                            rows[0].AVG_Receiver3_Ranneke4 = -999;
                         }
 
                         if (rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
@@ -240,6 +240,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                             console.log("RECEIVER2 VAHVIN")
                         }
                         else if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
+                            console.log(rows)
                             console.log("RECEIVER3 VAHVIN")
                         }
                 }
