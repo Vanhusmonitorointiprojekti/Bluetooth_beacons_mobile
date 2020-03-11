@@ -6,6 +6,7 @@ app.use(bodyparser.json());
 const database = require('../database/connect_to_db')
 const queries = require('../database/queries')
 const alerting = require('../detection/alerts')
+const multer = require('multer');
 
 //This is the backend -code which is required to run with front-end.
 //Component handles all the end-point requests and database queries.
@@ -19,6 +20,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
     app.get('/', (req, res) => {
         function writeInstructions() {
             res.send(
+            'GET beacon info -> /beacon_info' + '\n' +
             'GET receiver info -> /receiver_info' + '\n' +
             'GET last 50 beacon detections -> /beacon_detections' + '\n' +
             'GET wristlet 1 detections -> /detections/ranneke1' + '\n' +
@@ -30,6 +32,25 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
         }
         writeInstructions()
     });
+
+    //GET beacon_info from the database
+    app.get('/beacon_info', function(req, res) {
+
+    db.query('SELECT * FROM beacon_info', (err, rows, fields) => {
+      
+      if(!err) {
+      console.log(rows, "\n Rows fetched from the database")
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(rows)
+      }
+  
+      else {
+      console.log(err)
+      res.send(err)
+      }
+    })
+    
+  });
 
     //GET receiver_info from the database
     app.get('/receiver_info', function(req, res) {
@@ -73,6 +94,29 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
         let id = req.params.id;
       
         db.query(global_DELETE_beacon, [id], function (error, result) {
+      
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.send(result)
+        })
+    })
+
+    //This essential part of add functionality
+    const storage = multer.diskStorage({
+        destination: function (req, file, callback) {
+          callback(null, './uploads')
+        },
+        filename: function (req, file, callback) {
+          callback(null, file.originalname)
+        }
+      })
+      const upload = multer({ storage: storage });
+
+    //Add new beacon
+      app.post('/new_beacon', upload.none(), function(req,res) {
+  
+        console.log(req.body);
+        db.query('INSERT INTO beacon_info (beacon_user, beacon_id) VALUES (?,?)',
+        [req.body.user, req.body.id], function(error, result, fields) {
       
           res.setHeader('Access-Control-Allow-Origin', '*');
           res.send(result)
