@@ -32,7 +32,6 @@ class Socket extends Component {
   }
 
   render() {
-    const { response } = this.state;
     return (
       <div style={{ textAlign: "center" }}>
         <Paper>
