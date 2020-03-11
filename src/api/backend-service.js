@@ -80,7 +80,7 @@ app.get('/beacon_detections', function(req, res) {
   db.query('SELECT * FROM beacon_detections ORDER BY measument_time DESC limit 50;', (err, rows, fields) => {
 
     if(!err) {
-      console.log(rows, "\n Rows fetched from the database")
+
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.send(rows)
     }
@@ -98,7 +98,7 @@ app.get('/beacon_locations', function(req, res){
    UNION (SELECT d.receiver_id, i.beacon_user, d.signal_db, d.measument_time FROM beacon_detections d JOIN beacon_info i ON (d.beacon_id = i.beacon_id) WHERE d.beacon_id = "d6:2c:ca:c0:d4:9c" ORDER BY measument_time DESC limit 1)\
     UNION (SELECT d.receiver_id, i.beacon_user, d.signal_db, d.measument_time FROM beacon_detections d JOIN beacon_info i ON (d.beacon_id = i.beacon_id) WHERE d.beacon_id = "f2:36:00:21:c0:50" ORDER BY measument_time DESC limit 1);', (err, rows, fields) =>{
     if (!err){
-      console.log(rows, "\n Rows fetched from the databese")
+
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.send(rows)
     }
@@ -143,4 +143,26 @@ app.post('/new_beacon', upload.none(), function(req,res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(result)
   })
+})
+
+app.get('/beacon/one/:id', function(req,res) {
+  let id = req.params.id;
+
+  db.query('SELECT * FROM beacon_info where beacon_id=?', [id], function (error, result) {
+    if (error) throw error;
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.send(result)
+  })
+
+});
+
+app.post('/beacon/edit/:id', upload.none(), function(req,res) {
+
+  db.query('UPDATE beacon_info SET beacon_user = ? WHERE beacon_id = ?',
+      [req.body.user, req.params.id], function(error, result, fields) {
+
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.send(result)
+      })
 })
