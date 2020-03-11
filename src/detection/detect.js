@@ -318,3 +318,25 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
             })
         }setInterval(avg_ranneke4, 1000);
     });
+
+app.get('/beacon/one/:id', function(req,res) {
+    let id = req.params.id;
+
+    db.query('SELECT * FROM beacon_info where beacon_id=?', [id], function (error, result) {
+        if (error) throw error;
+
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.send(result)
+    })
+
+});
+
+app.post('/beacon/edit/:id', upload.none(), function(req,res) {
+
+    db.query('UPDATE beacon_info SET beacon_user = ? WHERE beacon_id = ?',
+        [req.body.user, req.params.id], function(error, result, fields) {
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.send(result)
+        })
+})
