@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Paper, Table, TableRow, TableHead, TableCell, TableBody, Button } from '@material-ui/core';
-import { Link, Router, BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom'
 import AddBeacon from './addnew_beacon'
 
 class Beacon_info extends Component {
@@ -88,17 +88,5 @@ render() {
 
 
 }
-
-const styles =  {
-    buttonStyle: {
-        width: 80,
-        height: 80,
-        
-    },
-    headerStyle: {
-        textAlign: 'center'
-    }
-        
-} ;
 
 export default Beacon_info;
