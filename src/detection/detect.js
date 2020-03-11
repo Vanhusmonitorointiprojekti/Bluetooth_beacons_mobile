@@ -11,7 +11,7 @@ const alerting = require('../detection/alerts')
 expressPort = 4001;
 var server = app.listen(expressPort,()=>console.log('\nExpress is running at port no : ' + expressPort));
 
-    //Write instructions to / -page
+    //Write instructions to '/' -page
     app.get('/', (req, res) => {
         function writeInstructions() {
             res.send(
@@ -27,7 +27,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
         writeInstructions()
     });
 
-    //GET receiver_info from DB
+    //GET receiver_info from the database
     app.get('/receiver_info', function(req, res) {
 
         db.query(global.GET_receiver_info, (err, rows, fields) => {
@@ -46,7 +46,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
     });
 
 
-    //GET Last 50 beacon_detections from DB
+    //GET Last 50 beacon_detections from the database
     app.get('/beacon_detections', function(req, res) {
 
         db.query(global.GET_last_beacon_detections, (err, rows, fields) => {
@@ -64,6 +64,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
         })
     });
 
+    //delete beacon with it's id
     app.get('/delete/:id', function(req, res) {
         let id = req.params.id;
       
@@ -84,7 +85,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
 
             (err, rows, fields)=> {
 
-                //check if database contains null values and change them to -999 ("out of range")
+                //check if database contains null values (not detected) and change them to -999 ("out of range")
                 if(!err) {
                     if(rows[0].AVG_Receiver1_Ranneke1 == null) {
                         rows[0].AVG_Receiver1_Ranneke1 = -999;
@@ -98,7 +99,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                         rows[0].AVG_Receiver3_Ranneke1 = -999;
                     }
 
-                //check which signal_db is strongest and print it
+                //check which signal is strongest and print the receiver which had the highest value
                     if (rows[0].AVG_Receiver1_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver1_Ranneke1 > rows[0].AVG_Receiver3_Ranneke1) {
                         console.log("RECEIVER1 VAHVIN")
                         alert('Ranneke 1 ' + red_alert)
@@ -108,6 +109,10 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                     }
                     else if (rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver3_Ranneke1 > rows[0].AVG_Receiver1_Ranneke2) {
                         console.log("RECEIVER3 VAHVIN")
+                    }
+                //Check if all signals are equal, if yes assume that those are not in range
+                    else if (rows[0].AVG_Receiver1_Ranneke1 == rows[0].AVG_Receiver2_Ranneke1 && rows[0].AVG_Receiver1_Ranneke1 == rows[0].AVG_Receiver1_Ranneke1 && rows[0].AVG_Receiver2_Ranneke1 == rows[0].AVG_Receiver3_Ranneke1) {
+                        console.log('Not in range')
                     }
             }
         
@@ -128,7 +133,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
 
                 (err, rows, fields)=> {
                 
-                    //check if database contains null values and change them to -999 ("out of range")
+                    //check if database contains null values (not detected) and change them to -999 ("out of range")
                     if(!err) {
                         if(rows[0].AVG_Receiver1_Ranneke2 == null) {
                             rows[0].AVG_Receiver1_Ranneke2 = -999;
@@ -141,7 +146,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                         if(rows[0].AVG_Receiver3_Ranneke2 == null) {
                             rows[0].AVG_Receiver3_Ranneke2 = -999;
                         }
-    
+                        //check which signal is strongest and print the receiver which had the highest value
                         if (rows[0].AVG_Receiver1_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver1_Ranneke2 > rows[0].AVG_Receiver3_Ranneke2) {
                             console.log("RECEIVER1 VAHVIN")
                             alert('Ranneke 2 ' + red_alert) 
@@ -151,6 +156,10 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                         }
                         else if (rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver3_Ranneke2 > rows[0].AVG_Receiver1_Ranneke2) {
                             console.log("RECEIVER3 VAHVIN")
+                        }
+                        //Check if all signals are equal, if yes assume that those are not in range
+                        else if (rows[0].AVG_Receiver1_Ranneke2 == rows[0].AVG_Receiver2_Ranneke2 && rows[0].AVG_Receiver1_Ranneke2 == rows[0].AVG_Receiver1_Ranneke2 && rows[0].AVG_Receiver2_Ranneke2 == rows[0].AVG_Receiver3_Ranneke2) {
+                            console.log('Not in range')
                         }
                 }
             
@@ -171,7 +180,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
 
             (err, rows, fields)=> {
 
-                //check if database contains null values and change them to -999 ("out of range")
+                //check if database contains null values (not detected) and change them to -999 ("out of range")
                 if(!err) {
                     if(rows[0].AVG_Receiver1_Ranneke3 == null) {
                         rows[0].AVG_Receiver1_Ranneke3 = -999;
@@ -184,7 +193,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                     if(rows[0].AVG_Receiver3_Ranneke3 == null) {
                         rows[0].AVG_Receiver3_Ranneke3 = -999;
                     }
-
+                    //check which signal is strongest and print the receiver which had the highest value
                     if (rows[0].AVG_Receiver1_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver1_Ranneke3 > rows[0].AVG_Receiver3_Ranneke3) {
                         console.log("RECEIVER1 VAHVIN")
                         alert('Ranneke 3 ' + red_alert) 
@@ -198,6 +207,10 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                     }
                     else if (rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver3_Ranneke3 > rows[0].AVG_Receiver1_Ranneke3) {
                         console.log("RECEIVER3 VAHVIN")
+                    }
+                    //Check if all signals are equal, if yes assume that those are not in range
+                    else if (rows[0].AVG_Receiver1_Ranneke3 == rows[0].AVG_Receiver2_Ranneke3 && rows[0].AVG_Receiver1_Ranneke3 == rows[0].AVG_Receiver1_Ranneke3 && rows[0].AVG_Receiver2_Ranneke3 == rows[0].AVG_Receiver3_Ranneke3) {
+                        console.log('Not in range')
                     }
             }
         
@@ -218,7 +231,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
 
                 (err, rows, fields)=> {
 
-                //check if database contains null values and change them to -999 ("out of range")
+                //check if database contains null values (not detected) and change them to -999 ("out of range")
                 if(!err) {
                         if(rows[0].AVG_Receiver1_Ranneke4 == null) {
                             rows[0].AVG_Receiver1_Ranneke4 = -999;
@@ -231,7 +244,7 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                         if(rows[0].AVG_Receiver3_Ranneke4 == null) {
                             rows[0].AVG_Receiver3_Ranneke4 = -999;
                         }
-
+                        //check which signal is strongest and print the receiver which had the highest value
                         if (rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 > rows[0].AVG_Receiver3_Ranneke4) {
                             console.log("RECEIVER1 VAHVIN")
                             alert('Ranneke 4 ' + red_alert)  
@@ -242,6 +255,10 @@ var server = app.listen(expressPort,()=>console.log('\nExpress is running at por
                         else if (rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver3_Ranneke4 > rows[0].AVG_Receiver1_Ranneke4) {
                             console.log(rows)
                             console.log("RECEIVER3 VAHVIN")
+                        }
+                        //Check if all signals are equal, if yes assume that those are not in range
+                        else if (rows[0].AVG_Receiver1_Ranneke4 == rows[0].AVG_Receiver2_Ranneke4 && rows[0].AVG_Receiver1_Ranneke4 == rows[0].AVG_Receiver1_Ranneke4 && rows[0].AVG_Receiver2_Ranneke4 == rows[0].AVG_Receiver3_Ranneke4) {
+                            console.log('Not in range')
                         }
                 }
 
