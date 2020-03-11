@@ -5,7 +5,6 @@ import Tab from '@material-ui/core/Tab';
 import Beacon_detections from './beacon_detections.js';
 import Receiver_info from './receiver_info.js';
 import Beacon_info from './beacon_info.js';
-import Beacon_locations from './beacon_locations.js';
 import Socket from './socket';
 
 class AdminFrontPage extends Component{

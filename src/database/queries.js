@@ -22,7 +22,7 @@ global.GET_last_beacon_detections =
             SELECT * \
             FROM beacon_detections \
             ORDER BY measument_time DESC \
-            LIMIT 25 \
+            LIMIT 10 \
             ';
             
 global.GET_detections_ranneke1 = 
