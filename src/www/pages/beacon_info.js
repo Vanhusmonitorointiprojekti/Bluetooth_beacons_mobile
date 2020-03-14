@@ -29,8 +29,6 @@ class Beacon_info extends Component {
     }
 
 
-
-
     delete_beacon = (beacon_id) => {
         fetch('http://localhost:4000/delete/' + beacon_id)
             .then((response) => response.json())
