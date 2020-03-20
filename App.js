@@ -20,8 +20,8 @@ export default function App() {
   return (
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Beacon_info} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Beacon Info" component={Beacon_info} />
+          <Tab.Screen name="Beacon Locations" component={SettingsScreen} />
         </Tab.Navigator>
       </NavigationContainer>
   );

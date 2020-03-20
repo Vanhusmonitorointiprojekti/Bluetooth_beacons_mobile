@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 13350,
-  "expoServerNgrokUrl": "https://ca-24x.anonymous.bluetooth-beacons.exp.direct",
-  "packagerNgrokUrl": "https://packager.ca-24x.anonymous.bluetooth-beacons.exp.direct",
-  "ngrokPid": 13367
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
