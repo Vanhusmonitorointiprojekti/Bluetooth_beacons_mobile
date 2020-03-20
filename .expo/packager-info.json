@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://ad-rpa.anonymous.bluetooth-beacons.exp.direct",
+  "packagerNgrokUrl": "https://packager.ad-rpa.anonymous.bluetooth-beacons.exp.direct",
+  "ngrokPid": 25252
 }

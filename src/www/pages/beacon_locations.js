@@ -5,26 +5,16 @@ import {
     ScrollView,
     StyleSheet, Dimensions, FlatList
 } from 'react-native';
+import socketIOClient from "socket.io-client";
 
 
 
 
-export default function Beacon_info() {
+export default function Beacon_locations() {
 
     const [tieto, setTieto] = useState([]);
+    const [endpoint, setEndpoint] = useState("http://127.0.0.1:4001")
 
-
-
-    delete_beacon = (beacon_id) => {
-        fetch('http://localhost:4000/delete/' + beacon_id)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState(prevState => ({
-                    tieto: prevState.tieto.filter(beacon =>
-                        beacon.beacon_id !== beacon_id)
-                }));
-            })
-    };
 
     showEmpty = () => {
         return (
@@ -36,17 +26,24 @@ export default function Beacon_info() {
     }
 
     useEffect (() => {
-        fetch('http://localhost:4000/beacon_info')
+        fetch('http://localhost:4000/beacon_locations')
             .then((response) => response.json())
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
-                console.log(tieto)
-            })
+
+                const {endpoint} = this.useState;
+                this.socket = socketIOClient("http://127.0.0.1:4001");
+                this.socket.on("emitSocket", data =>  {
+                    this.setState({tieto: [...this.state.tieto, data]
+
+                    });
+                });
+            });
+        
     }, []);
 
 
         return (
-           
             <View style={styles.container}>
                 
                 <FlatList
@@ -54,8 +51,8 @@ export default function Beacon_info() {
                     
                     renderItem={({item}) =>(<View>
                         <Text style={styles.textFlatlistStyle}>Beacon User: {item.beacon_user} </Text>
-                        <Text style={styles.textFlatlistStyle}>Beacon ID: {item.beacon_id}</Text>
-
+                        <Text style={styles.textFlatlistStyle}>Beacon ID: {item.receiver_id}</Text>
+                        <Text style={styles.textFlatlistStyle}>{item.signal_db}</Text>
                             </View>)
                     }
                     keyExtractor={item => item.beacon_user}
