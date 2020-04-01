@@ -10,6 +10,7 @@ import socketIOClient from "socket.io-client";
 
 
 
+
 export default function Beacon_locations() {
 
     const [tieto, setTieto] = useState([]);
@@ -31,12 +32,10 @@ export default function Beacon_locations() {
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
 
-                const {endpoint} = this.useState;
+                
                 this.socket = socketIOClient("http://127.0.0.1:4001");
                 this.socket.on("emitSocket", data =>  {
-                    this.setState({tieto: [...this.state.tieto, data]
-
-                    });
+                setTieto(...tieto, data);
                 });
             });
         
