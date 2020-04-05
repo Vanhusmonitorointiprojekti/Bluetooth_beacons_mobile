@@ -52,6 +52,7 @@ export default function Beacon_locations() {
                         <Text style={styles.textFlatlistStyle}>Beacon User: {item.beacon_user} </Text>
                         <Text style={styles.textFlatlistStyle}>Beacon ID: {item.receiver_id}</Text>
                         <Text style={styles.textFlatlistStyle}>{item.signal_db}</Text>
+                        <Text styles={{padding: 5}}> </Text>
                             </View>)
                     }
                     keyExtractor={item => item.beacon_user}
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding:10,
         fontSize: 25,
-        backgroundColor: 'orange',
+        backgroundColor: '#DFDFDF',
         paddingHorizontal: 10
     }
 })
