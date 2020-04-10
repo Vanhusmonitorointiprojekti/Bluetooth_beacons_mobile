@@ -11,6 +11,7 @@ import socketIOClient from "socket.io-client";
 
 
 
+
 export default function Beacon_locations() {
 
     const [tieto, setTieto] = useState([]);
@@ -25,6 +26,8 @@ export default function Beacon_locations() {
         )
 
     }
+
+
 
     useEffect (() => {
         fetch('http://localhost:4000/beacon_locations')
@@ -42,16 +45,40 @@ export default function Beacon_locations() {
     }, []);
 
 
+    getStatusColor = () =>{
+
+        juttuja = tieto.filter(function(tavara) {
+            if (tavara.location_type === "green") {
+                
+                return {backgroundColor: "green"};
+            }
+
+            if (tavara.location_type === "red") {
+                return "red";
+            }
+
+            if (tavara.location_type === "yellow") {
+                return "yellow";
+            }
+
+        });
+  
+        
+
+    }
+
+
         return (
             <View style={styles.container}>
                 
                 <FlatList
                     data={tieto}
                     
-                    renderItem={({item}) =>(<View>
-                        <Text style={styles.textFlatlistStyle}>Beacon User: {item.beacon_user} </Text>
+                    renderItem={({item}) => (<View>
+                        
+                       <Text style={styles.textFlatlistStyle}>Beacon User: {item.beacon_user} </Text>
                         <Text style={styles.textFlatlistStyle}>Beacon ID: {item.receiver_id}</Text>
-                        <Text style={styles.textFlatlistStyle}>{item.signal_db}</Text>
+                        <Text style={{backgroundColor: getStatusColor(), fontSize: 25, paddingHorizontal: 10}}>{item.location_type}</Text>
                         <Text styles={{padding: 5}}> </Text>
                             </View>)
                     }
