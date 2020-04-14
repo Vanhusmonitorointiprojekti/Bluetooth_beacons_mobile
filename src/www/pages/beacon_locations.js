@@ -3,9 +3,12 @@ import {
     Text,
     View,
     ScrollView,
-    StyleSheet, Dimensions, FlatList
+    StyleSheet, Dimensions, FlatList, Modal, Alert
 } from 'react-native';
+
+import AwesomeAlert from 'react-native-awesome-alerts';
 import socketIOClient from "socket.io-client";
+
 
 
 
@@ -15,7 +18,9 @@ import socketIOClient from "socket.io-client";
 export default function Beacon_locations() {
 
     const [tieto, setTieto] = useState([]);
+    const [alerts, setAlerts] = useState([]);
     const [endpoint, setEndpoint] = useState("http://127.0.0.1:4001")
+    const [showWarning, setShowWarning] = useState(false);
 
 
     showEmpty = () => {
@@ -45,28 +50,15 @@ export default function Beacon_locations() {
     }, []);
 
 
-    getStatusColor = () =>{
-
-        juttuja = tieto.filter(function(tavara) {
-            if (tavara.location_type === "green") {
-                
-                return {backgroundColor: "green"};
-            }
-
-            if (tavara.location_type === "red") {
-                return "red";
-            }
-
-            if (tavara.location_type === "yellow") {
-                return "yellow";
-            }
-
-        });
-  
-        
+    showAlert = () => {
+        setShowWarning(true);
 
     }
 
+    hideAlert = () => {
+        setShowWarning(false);
+
+    }
 
         return (
             <View style={styles.container}>
@@ -74,16 +66,61 @@ export default function Beacon_locations() {
                 <FlatList
                     data={tieto}
                     
-                    renderItem={({item}) => (<View>
+                    renderItem={({item}) => {
+                    if (item.location_type == "green") {
+
+                         return <View>
                         
-                       <Text style={styles.textFlatlistStyle}>Beacon User: {item.beacon_user} </Text>
-                        <Text style={styles.textFlatlistStyle}>Beacon ID: {item.receiver_id}</Text>
-                        <Text style={{backgroundColor: getStatusColor(), fontSize: 25, paddingHorizontal: 10}}>{item.location_type}</Text>
-                        <Text styles={{padding: 5}}> </Text>
-                            </View>)
+                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon User: {item.beacon_user} </Text>
+                         <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon ID: {item.receiver_id}</Text>
+                         <Text style={{fontSize: 25, backgroundColor: "green", padding: 10}}>{item.location_type}</Text>
+                         <Text styles={{padding: 5}}> </Text>
+                             </View>
+                    }
+                    else if (item.location_type == "red") {
+                        return <View>
+                        
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={{fontSize: 25, backgroundColor: "red", padding: 10}}>{showAlert(item.location_type)}{item.location_type}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                                 </View>
+                    }
+
+                    else  {
+                        return <View>
+                        
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={{fontSize: 25, backgroundColor: "yellow", padding: 10}}>{item.location_type}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                                 </View>
+                    }
+                    
+                    }
+                    
                     }
                     keyExtractor={item => item.beacon_user}
                 />
+                
+                <AwesomeAlert
+          show={showWarning}
+          showProgress={false}
+          title="Warning"
+          message="Beacon detected inside yellow/red zone!"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showConfirmButton={true}
+          confirmText="Understood!"
+          confirmButtonColor="#DD6B55"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
+      
             </View>
          
 
