@@ -3,8 +3,9 @@ import {
     Text,
     View,
     ScrollView,
-    StyleSheet, Dimensions, FlatList, Modal, Alert
+    StyleSheet, Dimensions, FlatList, Modal, Alert, Image
 } from 'react-native';
+import { Card, ListItem, Button, Icon, CardItem } from 'react-native-elements'
 
 import AwesomeAlert from 'react-native-awesome-alerts';
 import socketIOClient from "socket.io-client";
@@ -15,7 +16,8 @@ import socketIOClient from "socket.io-client";
 
 
 
-export default function Beacon_locations() {
+
+export default function Beacon_locations_cards() {
 
     const [tieto, setTieto] = useState([]);
     const [alerts, setAlerts] = useState([]);
@@ -62,38 +64,47 @@ export default function Beacon_locations() {
 
         return (
             <View style={styles.container}>
-                
-                <FlatList
+          
+          <FlatList
                     data={tieto}
                     
                     renderItem={({item}) => {
+
+
                     if (item.location_type == "green") {
 
                          return <View>
-                        
+                        <Card>
+                        <Image source={require('./jokutyyppixd.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
                         <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon User: {item.beacon_user} </Text>
                          <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon ID: {item.receiver_id}</Text>
                          <Text style={{fontSize: 25, backgroundColor: "green", padding: 10}}>{item.location_type}</Text>
                          <Text styles={{padding: 5}}> </Text>
+                         </Card>
                              </View>
+                             
                     }
                     else if (item.location_type == "red") {
                         return <View>
-                        
+                            <Card>
+                            <Image source={require('./jokutyyppixd2.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
                              <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
                              <Text style={{fontSize: 25, backgroundColor: "red", padding: 10}}>{showAlert()}{item.location_type}</Text>
                              <Text styles={{padding: 5}}> </Text>
+                             </Card>
                                  </View>
                     }
 
                     else  {
                         return <View>
-                        
+                            <Card>
+                            <Image source={require('./jokutyyppixd3.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
                              <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
                              <Text style={{fontSize: 25, backgroundColor: "yellow", padding: 10}}>{item.location_type}</Text>
                              <Text styles={{padding: 5}}> </Text>
+                             </Card>
                                  </View>
                     }
                     
@@ -102,26 +113,7 @@ export default function Beacon_locations() {
                     }
                     keyExtractor={item => item.beacon_user}
                 />
-                
-                <AwesomeAlert
-          show={showWarning}
-          showProgress={false}
-          title="Warning"
-          message="Beacon detected inside yellow/red zone!"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showConfirmButton={true}
-          confirmText="Understood!"
-          confirmButtonColor="#DD6B55"
-          onCancelPressed={() => {
-            this.hideAlert();
-          }}
-          onConfirmPressed={() => {
-            this.hideAlert();
-          }}
-
-        />
-      
+    
             </View>
          
 

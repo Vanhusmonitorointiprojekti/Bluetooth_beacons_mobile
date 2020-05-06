@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://zm-x82.anonymous.bluetooth-beacons.exp.direct",
+  "packagerNgrokUrl": "https://packager.zm-x82.anonymous.bluetooth-beacons.exp.direct",
+  "ngrokPid": 68509
 }
