@@ -79,7 +79,7 @@ export default function Avatars() {
                         <Avatar
                         size="xlarge"
   rounded
-  source={require('./jokutyyppixd.jpeg')}
+  source={require('./jokutyyppi.jpeg')}
   containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
 />
                         <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon User: {item.beacon_user} </Text>
@@ -96,7 +96,7 @@ export default function Avatars() {
                             <Avatar
                         size="xlarge"
   rounded
-  source={require('./jokutyyppixd2.jpeg')}
+  source={require('./jokutyyppi2.jpeg')}
   containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
 />
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
@@ -113,7 +113,7 @@ export default function Avatars() {
                             <Avatar
                         size="xlarge"
   rounded
-  source={require('./jokutyyppixd3.jpeg')}
+  source={require('./jokutyyppi3.jpeg')}
   containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
 />
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>

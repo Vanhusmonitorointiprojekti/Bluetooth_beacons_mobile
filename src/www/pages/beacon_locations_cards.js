@@ -75,7 +75,7 @@ export default function Beacon_locations_cards() {
 
                          return <View>
                         <Card>
-                        <Image source={require('./jokutyyppixd.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
+                        <Image source={require('./jokutyyppi.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
                         <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon User: {item.beacon_user} </Text>
                          <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon ID: {item.receiver_id}</Text>
                          <Text style={{fontSize: 25, backgroundColor: "green", padding: 10}}>{item.location_type}</Text>
@@ -87,7 +87,7 @@ export default function Beacon_locations_cards() {
                     else if (item.location_type == "red") {
                         return <View>
                             <Card>
-                            <Image source={require('./jokutyyppixd2.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
+                            <Image source={require('./jokutyyppi2.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
                              <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
                              <Text style={{fontSize: 25, backgroundColor: "red", padding: 10}}>{showAlert()}{item.location_type}</Text>
@@ -99,7 +99,7 @@ export default function Beacon_locations_cards() {
                     else  {
                         return <View>
                             <Card>
-                            <Image source={require('./jokutyyppixd3.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
+                            <Image source={require('./jokutyyppi3.jpeg')} style = {{height: 350, width: '100%', resizeMode : 'stretch',}} />
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
                              <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
                              <Text style={{fontSize: 25, backgroundColor: "yellow", padding: 10}}>{item.location_type}</Text>
