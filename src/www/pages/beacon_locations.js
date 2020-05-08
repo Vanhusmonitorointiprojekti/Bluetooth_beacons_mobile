@@ -1,38 +1,20 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
-    ScrollView,
-    StyleSheet, Dimensions, FlatList, Modal, Alert
+    StyleSheet, FlatList
 } from 'react-native';
+import { Card } from 'react-native-elements'
 
-import AwesomeAlert from 'react-native-awesome-alerts';
 import socketIOClient from "socket.io-client";
+import { Avatar } from 'react-native-elements';
 
 
 
-
-
-
-
-export default function Beacon_locations() {
+export default function beacon_locations() {
 
     const [tieto, setTieto] = useState([]);
-    const [alerts, setAlerts] = useState([]);
     const [endpoint, setEndpoint] = useState("http://127.0.0.1:4001")
-    const [showWarning, setShowWarning] = useState(false);
-
-
-    showEmpty = () => {
-        return (
-            <View>
-                <Text>Ei näy huppista keikkaa!</Text>
-            </View>
-        )
-
-    }
-
-
 
     useEffect (() => {
         fetch('http://localhost:4000/beacon_locations')
@@ -44,93 +26,134 @@ export default function Beacon_locations() {
                 this.socket = socketIOClient("http://127.0.0.1:4001");
                 this.socket.on("emitSocket", data =>  {
                 setTieto(...tieto, data);
+                
                 });
             });
         
     }, []);
 
 
-    showAlert = () => {
-        setShowWarning(true);
-
-    }
-
-    hideAlert = () => {
-        setShowWarning(false);
-
-    }
-
         return (
             <View style={styles.container}>
-                
-                <FlatList
-                    data={tieto}
-                    
-                    renderItem={({item}) => {
-                    if (item.location_type == "green") {
+          
+            <FlatList style={{}}
+                data={tieto}    
+                renderItem={({item}) => {
 
-                         return <View>
-                        
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon User: {item.beacon_user} </Text>
-                         <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>Beacon ID: {item.receiver_id}</Text>
-                         <Text style={{fontSize: 25, backgroundColor: "green", padding: 10}}>{item.location_type}</Text>
-                         <Text styles={{padding: 5}}> </Text>
-                             </View>
-                    }
-                    else if (item.location_type == "red") {
+                    if (item.location_type == "red" && item.beacon_user == "Ranneke1") {
                         return <View>
-                        
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./jokutyyppi.jpeg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
                              <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
-                             <Text style={{fontSize: 25, backgroundColor: "red", padding: 10}}>{showAlert()}{item.location_type}</Text>
                              <Text styles={{padding: 5}}> </Text>
+                             </Card>
                                  </View>
                     }
 
-                    else  {
+                    else if (item.location_type == "red" && item.beacon_user == "Ranneke2") {
                         return <View>
-                        
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./jokutyyppi2.jpeg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                             </Card>
+                                 </View>
+                    }
+
+                    else if (item.location_type == "red" && item.beacon_user == "Ranneke3") {
+                        return <View>
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./jokutyyppi3.jpeg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                             </Card>
+                                 </View>
+                    }
+
+                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke1") {
+                        return <View>
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./jokutyyppi.jpeg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
                              <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
-                             <Text style={{fontSize: 25, backgroundColor: "yellow", padding: 10}}>{item.location_type}</Text>
                              <Text styles={{padding: 5}}> </Text>
+                             </Card>
                                  </View>
                     }
-                    
-                    }
-                    
-                    }
-                    keyExtractor={item => item.beacon_user}
-                />
-                
-                <AwesomeAlert
-          show={showWarning}
-          showProgress={false}
-          title="Warning"
-          message="Beacon detected inside yellow/red zone!"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showConfirmButton={true}
-          confirmText="Understood!"
-          confirmButtonColor="#DD6B55"
-          onCancelPressed={() => {
-            this.hideAlert();
-          }}
-          onConfirmPressed={() => {
-            this.hideAlert();
-          }}
+                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke2") {
+                        return <View>
+                            <Card>
 
-        />
-      
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./jokutyyppi2.jpeg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                             </Card>
+                                 </View>
+                    }
+                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke3") {
+                        return <View>
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./jokutyyppi3.jpeg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                             </Card>
+                                 </View>
+
+                    }
+                    
+                }
+                    
+                }
+                keyExtractor={item => item.beacon_user}
+            />
             </View>
-         
-
         );
-
-
-
-
-
 }
 
 const styles = StyleSheet.create({
