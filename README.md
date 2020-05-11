@@ -22,12 +22,12 @@ node detect.js
    
    Here is an example of the required code to be modified.
    
-    useEffect (() => {
-        // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations
-        fetch('http://000.000.0.0:4000/beacon_locations')
-            .then((response) => response.json())
-            .then(responseJson => {
-                setTieto(...tieto, responseJson)
+         useEffect (() => {
+           // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations
+           fetch('http://000.000.0.0:4000/beacon_locations')
+               .then((response) => response.json())
+               .then(responseJson => {
+                   setTieto(...tieto, responseJson)
 
                 // Put your Ipv4 address here for example http://000.000.0.0:4001
                 this.socket = socketIOClient("http://000.000.0.0:4001");
@@ -37,7 +37,7 @@ node detect.js
                 });
             });
         
-    }, []);
+          }, []);
 
 
 5. Start front-end by opening another instance of Powershell and navigating to application folder:
