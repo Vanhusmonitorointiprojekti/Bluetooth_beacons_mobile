@@ -74,3 +74,12 @@ Follow on screen expo directions to launch the app the device of your choice.
  
  For more detailed description of the logic and for the backend details check Bluetooth beacons repository.
 
+<!-- Known issues and future developments -->
+## Known issues and future developments
+
+See the [open issues](https://github.com/Marski96/Bluetooth_beacons_mobile/issues) for a list of proposed features (and known issues).
+
+<!-- License -->
+## License
+Licensed under MIT -license.
+https://opensource.org/licenses/MIT
