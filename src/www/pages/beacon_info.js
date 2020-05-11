@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
-    StyleSheet, FlatList
+    StyleSheet, FlatList, ScrollView
 } from 'react-native';
 
 
@@ -12,7 +12,8 @@ export default function Beacon_info() {
 
 
     useEffect (() => {
-        fetch('http://localhost:4000/beacon_info')
+        // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
+        fetch('http://000.000.0.0:4000/beacon_info')
             .then((response) => response.json())
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
@@ -24,7 +25,6 @@ export default function Beacon_info() {
         return (
            
             <View style={styles.container}>
-                
                 <FlatList
                     data={tieto}
                     
@@ -37,7 +37,7 @@ export default function Beacon_info() {
                     keyExtractor={item => item.beacon_user}
                 />
             </View>
-         
+            
 
         );
 }
@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
         padding:10,
         fontSize: 25,
         backgroundColor: '#DFDFDF',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        color: 'black'
+
     }
 })
