@@ -5,7 +5,6 @@ import {
     StyleSheet, FlatList
 } from 'react-native';
 import { Card } from 'react-native-elements'
-
 import socketIOClient from "socket.io-client";
 import { Avatar } from 'react-native-elements';
 
@@ -16,14 +15,16 @@ export default function beacon_locations() {
     const [tieto, setTieto] = useState([]);
     const [endpoint, setEndpoint] = useState("http://127.0.0.1:4001")
 
+
     useEffect (() => {
-        fetch('http://localhost:4000/beacon_locations')
+        // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations
+        fetch('http://000.000.0.0:4000/beacon_locations')
             .then((response) => response.json())
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
 
-                
-                this.socket = socketIOClient("http://127.0.0.1:4001");
+                // Put your Ipv4 address here for example http://000.000.0.0:4001
+                this.socket = socketIOClient("http://000.000.0.0:4001");
                 this.socket.on("emitSocket", data =>  {
                 setTieto(...tieto, data);
                 
