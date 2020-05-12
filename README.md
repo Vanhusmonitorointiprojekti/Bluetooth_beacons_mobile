@@ -1,9 +1,49 @@
-# Bluetooth_beacons_mobile
+# Bluetooth beacons mobile
+
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [How to use](#how-to-use)
+  * [Mobile client](#mobile-client)
+  * [Logic](#logic)
+* [Known issues and future developments](#known-issues-and-future-developments)
+* [License](#license)
 
 
-### About this project
-This is the direct mobile version of Bluetooth_beacons that can be found here https://github.com/Marski96/Bluetooth_beacons.
-Mobile version uses an old version of the same backend node server that the web version uses.
+<!-- ABOUT THE PROJECT -->
+## About the project
+
+Bluetooth beacons
+
+This project is directed towards helping people that are suffering from memory disorders. One of the ways this project accomplishes that is by tracking the patients, granting them some freedom from nursing staff. Patients wear bluetooth wristlets that send signals that are tracked by Rasperry Pis installed inside the nursing facility. The system is created to allow them more freedom of movement inside the areas they are permitted to access and to send alarms to nurses/staff via web or mobile client if patients wander outside the designated areas.
+
+This is the mobile version of Bluetooth_beacons that can be found here: https://github.com/Marski96/Bluetooth_beacons
+This version uses an older version of the same backend node server that the web version uses.
+
+### Built With
+* [MySQL](https://www.mysql.com/)
+* [Socket.io](https://socket.io/)
+* [React Native](https://reactjs.org/)
+* [Node.js](https://nodejs.org/en/)
+* [MQTT](http://mqtt.org/)
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+Make sure that you have node.js and Expo CLI installed.
+You can install node from here: https://nodejs.org/en/
+You can find expo installation instructions here: https://docs.expo.io/get-started/installation/
+
+### Prerequisites
+
+1. Download the application .zip
+2. Unzip the file to destination you like
+3. With Powershell, navigate to unzipped application folder `pushd ..\Bluetooth_beacons_mobile`
 
 ### Installation
 
@@ -50,21 +90,23 @@ node detect.js
 ```sh
 npm start
 ```
-Follow on screen expo directions to launch the app the device of your choice.
+Follow on screen expo directions to launch the app on the device of your choice.
 
 6. Both backend and frontend should be running in order for the application to work.
 
+<!-- How to use -->
+## How to use
 
-
-<!-- Webclient -->
-### Mobile
+<!-- mobile client -->
+### Mobile client
 
 
 #### Beacon locations is the main page of the application and it shows if becons have been detected outside the green zone.
-![Beacon locations](https://github.com/Marski96/Bluetooth_beacons_mobile/blob/master/IMG/beacon_locations.png)
+<img src="https://github.com/Marski96/Bluetooth_beacons_mobile/blob/master/IMG/beacon_locations.png" height="500" />
+
 
 #### Beacon info page shows who is wearing the beacon and their mac addresses
-![Beacon info](https://github.com/Marski96/Bluetooth_beacons_mobile/blob/master/IMG/beacon_info.png)
+<img src="https://github.com/Marski96/Bluetooth_beacons_mobile/blob/master/IMG/beacon_info.png" height="500" />
 
 
 <!-- Logic -->
@@ -72,7 +114,7 @@ Follow on screen expo directions to launch the app the device of your choice.
 
  App uses an older version of the backend used in https://github.com/Marski96/Bluetooth_beacons. App has been created using react native and expo. It uses react native's useEffect to fetch data from the node backend and socketio to keep fetching the data.
  
- For more detailed description of the logic and for the backend details check Bluetooth beacons repository.
+ For a more detailed description of the logic and for the backend details check Bluetooth beacons repository.
 
 <!-- Known issues and future developments -->
 ## Known issues and future developments
