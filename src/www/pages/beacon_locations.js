@@ -53,7 +53,7 @@ export default function beacon_locations() {
                             />
 
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
-                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Location: {item.receiver_location}</Text>
                              <Text styles={{padding: 5}}> </Text>
                              </Card>
                                  </View>
@@ -71,7 +71,7 @@ export default function beacon_locations() {
                             />
 
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
-                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Location: {item.receiver_location}</Text>
                              <Text styles={{padding: 5}}> </Text>
                              </Card>
                                  </View>
@@ -89,7 +89,7 @@ export default function beacon_locations() {
                             />
 
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
-                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Location: {item.receiver_location}</Text>
                              <Text styles={{padding: 5}}> </Text>
                              </Card>
                                  </View>
@@ -125,7 +125,7 @@ export default function beacon_locations() {
                             />
 
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
-                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Location: {item.receiver_location}</Text>
                              <Text styles={{padding: 5}}> </Text>
                              </Card>
                                  </View>
@@ -142,7 +142,7 @@ export default function beacon_locations() {
                             />
 
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
-                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Location: {item.receiver_location}</Text>
                              <Text styles={{padding: 5}}> </Text>
                              </Card>
                                  </View>
@@ -159,7 +159,7 @@ export default function beacon_locations() {
                             />
 
                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
-                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Location: {item.receiver_location}</Text>
                              <Text styles={{padding: 5}}> </Text>
                              </Card>
                                  </View>
