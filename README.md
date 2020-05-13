@@ -20,7 +20,7 @@
 
 Bluetooth beacons
 
-This project is directed towards helping people that are suffering from memory disorders. One of the ways this project accomplishes that is by tracking the patients, granting them some freedom from nursing staff. Patients wear bluetooth wristlets that send signals that are tracked by Rasperry Pis installed inside the nursing facility. The system is created to allow them more freedom of movement inside the areas they are permitted to access and to send alarms to nurses/staff via web or mobile client if patients wander outside the designated areas.
+This project is directed towards helping people that are suffering from memory disorders. One of the ways this project accomplishes that is by tracking the patients, granting them some freedom from nursing staff. Patients wear bluetooth wristlets that send signals that are tracked by Raspberry Pis installed inside the nursing facility. The system is created to allow them more freedom of movement inside the areas they are permitted to access and to send alarms to nurses/staff via web or mobile client if patients wander outside the designated areas.
 
 This is the mobile version of Bluetooth_beacons that can be found here: https://github.com/Marski96/Bluetooth_beacons
 This version uses an older version of the same backend node server that the web version uses.
