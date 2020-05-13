@@ -17,14 +17,14 @@ export default function beacon_locations() {
 
 
     useEffect (() => {
-        // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations
-        fetch('http://000.000.0.0:4000/beacon_locations')
+        //Fetching backend service url to get data from database. Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations_average
+        fetch('http://localhost:4000/beacon_locations_average')
             .then((response) => response.json())
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
 
                 // Put your Ipv4 address here for example http://000.000.0.0:4001
-                this.socket = socketIOClient("http://000.000.0.0:4001");
+                this.socket = socketIOClient("http://127.0.0.1:4001:4001");
                 this.socket.on("emitSocket", data =>  {
                 setTieto(...tieto, data);
                 
@@ -95,6 +95,24 @@ export default function beacon_locations() {
                                  </View>
                     }
 
+                    else if (item.location_type == "red" && item.beacon_user == "Ranneke4") {
+                        return <View>
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./img/beaconuser4.jpg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                             </Card>
+                                 </View>
+                    }
+
                     else if (item.location_type == "yellow" && item.beacon_user == "Ranneke1") {
                         return <View>
                             <Card>
@@ -137,6 +155,25 @@ export default function beacon_locations() {
                                 size="xlarge"
                                 rounded
                                 source={require('./img/beaconuser3.jpg')}
+                                containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
+                            />
+
+                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon User: {item.beacon_user} </Text>
+                             <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>Beacon ID: {item.receiver_id}</Text>
+                             <Text styles={{padding: 5}}> </Text>
+                             </Card>
+                                 </View>
+
+                    }
+
+                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke4") {
+                        return <View>
+                            <Card>
+
+                            <Avatar
+                                size="xlarge"
+                                rounded
+                                source={require('./img/beaconuser4.jpg')}
                                 containerStyle={{ marginLeft: 100, marginRight: 100, marginBottom: 10}}
                             />
 

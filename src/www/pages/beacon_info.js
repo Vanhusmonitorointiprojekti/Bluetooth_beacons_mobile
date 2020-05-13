@@ -13,7 +13,7 @@ export default function Beacon_info() {
 
     useEffect (() => {
         // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
-        fetch('http://000.000.0.0:4000/beacon_info')
+        fetch('http://localhost:4000/beacon_info')
             .then((response) => response.json())
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
