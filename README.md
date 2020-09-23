@@ -47,7 +47,7 @@ You can find expo installation instructions here: https://docs.expo.io/get-start
 
 ### Installation
 
-1. Using Powershell, install all required libraries by running `npm install`
+1. Using Powershell, install all required libraries by running `npm install`, `npm i @expo/vector-icons` and `npm i native-base`
 2. Make sure that all libraries are installed by navigating to detect folder using Powershell and running application's backend file called detection.js.
 ```sh
 ..\Bluetooth_beacons_mobile\src\detection

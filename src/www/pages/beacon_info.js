@@ -1,11 +1,23 @@
+
 import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
-    StyleSheet, FlatList, ScrollView
+    StyleSheet, FlatList
 } from 'react-native';
 
+function Item({ item }) {
+    return (
+      <View style={styles.listItem}>
+        
+        <View style={{alignItems:"center",flex:1}}>
+          <Text style={{fontWeight:"bold"}}>{item.beacon_user}</Text>
+          <Text>{item.beacon_id}</Text>
+        </View>
 
+      </View>
+    );
+  }
 export default function Beacon_info() {
 
     const [tieto, setTieto] = useState([]);
@@ -23,41 +35,36 @@ export default function Beacon_info() {
 
 
         return (
-           
             <View style={styles.container}>
-                <FlatList
-                    data={tieto}
-                    
-                    renderItem={({item}) =>(<View>
-                        <Text style={styles.textFlatlistStyle}>Beacon User: {item.beacon_user} </Text>
-                        <Text style={styles.textFlatlistStyle}>Beacon ID: {item.beacon_id}</Text>
-                        <Text styles={{padding: 5}}> </Text>
-                            </View>)
-                    }
-                    keyExtractor={item => item.beacon_user}
-                />
+            <FlatList
+              style={{flex:1}}
+              data={tieto}
+              renderItem={({ item }) => <Item item={item}/>}
+              keyExtractor={item => item.beacon_id}
+            />   
             </View>
-            
-
-        );
-}
+      );
+    }
+  
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
         flex: 1,
-        paddingTop: 50
-       
+        paddingTop: 50,
+        backgroundColor:'rgb(178, 223, 219)'
     },
 
-    textFlatlistStyle: {
-        flex: 1,
+    
+    listItem:{
+        margin:10,
         padding:10,
-        fontSize: 25,
-        backgroundColor: '#DFDFDF',
-        paddingHorizontal: 10,
-        color: 'black'
-
-    }
+        backgroundColor:"#FFF",
+        width:"80%",
+        flex:1,
+        alignSelf:"center",
+        flexDirection:"row",
+        borderRadius:5
+      }
 })
