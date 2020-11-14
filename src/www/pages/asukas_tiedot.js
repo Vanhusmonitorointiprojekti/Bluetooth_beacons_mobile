@@ -1,4 +1,3 @@
-import { Right } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import {
     Text,
@@ -8,41 +7,27 @@ import {
 
 function Item({ item }) {
   return (
-    <View>
-        <Card>
-        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-        <Left>
-            <Text style={{fontWeight:"bold"}}>{item.firstname} {item.lastname}  </Text>
-        </Left>
-        <Right>
-         <Muunnin item={item}/>
-        </Right>
-        </CardItem>
-        </Card>
+    <View style={styles.listItem}>
+      
+      <View style={{alignItems:"center",flex:1}}>
+     
+        <Text style={{fontWeight:"bold"}}>{item.tenant_firstname} {item.tenant_lastname}  </Text>
+        <Text>Pienkoti: {item.space_name}</Text>
+        <Text>Ranneke: {item.beacon_id}</Text>
+        
+      </View>
+
     </View>
   );
 }
-function Muunnin({ item }) {
-    if (item.status == "alarm" ) {    
-        <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.receiver_location}</Text>
-    
-  }
-  else if (item.location_type == "go check" ) {
-    <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.receiver_location}</Text>
-}
- else if (item.location_type == "ok" ) {
-  <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}> {item.receiver_location}</Text>  
-}
-}
-
-export default function Locations_info() {
+export default function Asukas_info() {
 
   const [tieto, setTieto] = useState([]);
 
 
   useEffect (() => {
       // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
-      fetch('https://www.vanhusmonitorointi.tk/statuses')
+      fetch('https://www.vanhusmonitorointi.tk/tenants')
           .then((response) => response.json())
           .then(responseJson => {
               setTieto(...tieto, responseJson)
@@ -57,7 +42,7 @@ export default function Locations_info() {
             style={{flex:1}}
             data={tieto}
             renderItem={({ item }) => <Item item={item}/>}
-            keyExtractor={item => item.tenant_id}
+            keyExtractor={item => item.beacon_id}
           />   
           </View>
     );

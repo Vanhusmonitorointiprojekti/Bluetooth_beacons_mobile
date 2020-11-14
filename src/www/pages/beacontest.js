@@ -19,13 +19,13 @@ export default function beacon_test() {
 
     useEffect (() => {
         //Fetching backend service url to get data from database. Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations_average
-        fetch('http://localhost:4000/beacon_locations_average')
+        fetch('http://192.168.1.197:4000/beacon_locations_average')
             .then((response) => response.json())
             .then(responseJson => {
                 setTieto(...tieto, responseJson)
 
                 // Put your Ipv4 address here for example http://000.000.0.0:4001
-                this.socket = socketIOClient("http://127.0.0.1:4001:4001");
+                this.socket = socketIOClient("http://192.168.1.197:4001");
                 this.socket.on("emitSocket", data =>  {
                 setTieto(...tieto, data);
                 
