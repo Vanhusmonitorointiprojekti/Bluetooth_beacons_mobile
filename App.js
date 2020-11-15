@@ -5,6 +5,7 @@ import Asukas_info from "./src/www/pages/asukas_tiedot";
 import Locations_info from "./src/www/pages/beacon_locations";
 import Beacon_test from "./src/www/pages/beacontest";
 import Beacon_halyt from "./src/www/pages/beacon_halyt";
+import Asukastietoja from './src/www/pages/asukastietoja'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //import { Image } from 'native-base';
 
@@ -26,13 +27,15 @@ export default function App() {
                     } else if (route.name === 'Asukas tiedot') {
                       iconName =  'account-circle';
                     }
-                    else if (route.name === 'Sijainnit') {
+                    else if (route.name === 'Asukassijainnit') {
                       iconName =  'person-pin-circle';
                     }
-                    else if (route.name === 'Hälyt') {
+                    else if (route.name === 'Hälytykset') {
                       iconName =  'warning';
                     }
-                    
+                    else if (route.name === 'Asukastietoja') {
+                      iconName =  'account-circle';
+                    }
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                   },
                 })}
@@ -43,8 +46,9 @@ export default function App() {
               >
           <Tab.Screen name="Sijaintitiedot" component={Locations_info} />
           <Tab.Screen name="Asukas tiedot" component={Asukas_info} />
-          <Tab.Screen name="SijainnitKESKEN" component={Beacon_test} />
-          <Tab.Screen name="HälytKESJEN" component={Beacon_halyt} />
+          <Tab.Screen name="Asukassijainnit" component={Beacon_test} />
+          <Tab.Screen name="Hälytykset" component={Beacon_halyt} />
+          <Tab.Screen name="Asukastietoja" component={Asukastietoja} />
         </Tab.Navigator>
       </NavigationContainer>
       

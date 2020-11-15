@@ -1,11 +1,11 @@
-import { Right } from 'native-base';
+
 import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
     StyleSheet, FlatList
 } from 'react-native';
-
+import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
 function Item({ item }) {
   return (
     <View>
@@ -15,25 +15,15 @@ function Item({ item }) {
             <Text style={{fontWeight:"bold"}}>{item.firstname} {item.lastname}  </Text>
         </Left>
         <Right>
-         <Muunnin item={item}/>
+             <Text>Sijainti: {item.location}</Text>
+             <Text> {item.status}</Text>
         </Right>
         </CardItem>
         </Card>
     </View>
   );
 }
-function Muunnin({ item }) {
-    if (item.status == "alarm" ) {    
-        <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.receiver_location}</Text>
-    
-  }
-  else if (item.location_type == "go check" ) {
-    <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.receiver_location}</Text>
-}
- else if (item.location_type == "ok" ) {
-  <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}> {item.receiver_location}</Text>  
-}
-}
+
 
 export default function Locations_info() {
 

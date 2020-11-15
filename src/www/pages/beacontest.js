@@ -1,304 +1,300 @@
+
 import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
     StyleSheet, FlatList
 } from 'react-native';
-import { Card } from 'react-native-elements'
-import socketIOClient from "socket.io-client";
-import { Avatar } from 'react-native-elements';
-import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Title } from 'native-base';
+import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
+import { Avatar } from "react-native-elements";
 
 
+export default function Locations_info() {
 
-export default function beacon_test() {
-
-    const [tieto, setTieto] = useState([]);
-    const [endpoint, setEndpoint] = useState("http://127.0.0.1:4001")
+  const [tieto, setTieto] = useState([]);
 
 
-    useEffect (() => {
-        //Fetching backend service url to get data from database. Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_locations_average
-        fetch('http://192.168.1.197:4000/beacon_locations_average')
-            .then((response) => response.json())
-            .then(responseJson => {
-                setTieto(...tieto, responseJson)
+  useEffect (() => {
+      // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
+      fetch('https://www.vanhusmonitorointi.tk/statuses')
+          .then((response) => response.json())
+          .then(responseJson => {
+              setTieto(...tieto, responseJson)
+              console.log(tieto)
+          })
+  }, []);
 
-                // Put your Ipv4 address here for example http://000.000.0.0:4001
-                this.socket = socketIOClient("http://192.168.1.197:4001");
-                this.socket.on("emitSocket", data =>  {
-                setTieto(...tieto, data);
-                
-                });
-            });
+  return (
+    <View style={styles.container}>
         
-    }, []);
+    <FlatList style={{}}
+        data={tieto}    
+        renderItem={({item}) => {
 
-
-        return (
-            <View style={styles.container}>
-                
-            <FlatList style={{}}
-                data={tieto}    
-                renderItem={({item}) => {
-
-                    if (item.location_type == "red" && item.beacon_user == "Ranneke1") {
-                        return  <View>
-                            <Card>    
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                            <Left>
-                            <Thumbnail source={require('./img/beaconuser1.jpg')} style={[styles.thumbnail]} />
-                            <Body>
-                            <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                          </Body>
-                             </Left>
-                    <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.receiver_location}</Text>
-                    </Right>
-                    </CardItem>
-                    </Card>
-                  </View>
-                    }
-
-                    else if (item.location_type == "red" && item.beacon_user == "Ranneke2") {
-                        return <View>
-                        <Card>
-
-                    
-                     <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+            if (item.status == "alarm" && item.tenant_id == "2020TNT1") {
+                return  <View>
+                    <Card>    
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
                     <Left>
-                    <Thumbnail source={require('./img/beaconuser2.jpg')} style={[styles.thumbnail]} />
+                    <Thumbnail source={require('./img/einstein.jpg')} style={[styles.thumbnail]} />
                     <Body>
-                    <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                    </Body>
-                    </Left>
-                    <Right>
-                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.receiver_location}</Text>
-                    </Right>
-                    </CardItem>
-                    </Card>
-                </View>
-                            
-                    }
+                    <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+                  </Body>
+                     </Left>
+            <Right>
+                <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.location}</Text>
+            </Right>
+            </CardItem>
+            </Card>
+          </View>
+            }
 
-                    else if (item.location_type == "red" && item.beacon_user == "Ranneke3") {
-                        return <View>
-                            <Card>
+            else if (item.status == "alarm" && item.tenant_id == "2020TNT2") {
+                return <View>
+                <Card>
 
-                            <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                    <Left>
-                    <Thumbnail source={require('./img/beaconuser3.jpg')} style={[styles.thumbnail]} />
-                    <Body>
-                    <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                    </Body>
-                    </Left>
-                    <Right>
-                            <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.receiver_location}</Text>
-                    </Right>
-                    </CardItem>
-                    </Card>
-                                 </View>
-                    }
-
-                    else if (item.location_type == "red" && item.beacon_user == "Ranneke4") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser4.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-
-                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke1") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser1.jpg')} style={[styles.thumbnail]}/>
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke2") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser2.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>{item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke3") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser3.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>{item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-
-                    else if (item.location_type == "yellow" && item.beacon_user == "Ranneke4") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser4.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-
-                    }
-                    else if (item.location_type == "green" && item.beacon_user == "Ranneke1") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser1.jpg')} style={[styles.thumbnail]}/>
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}> {item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-                    else if (item.location_type == "green" && item.beacon_user == "Ranneke2") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser2.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>{item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-                    else if (item.location_type == "green" && item.beacon_user == "Ranneke3") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser3.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>{item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-                    }
-
-                    else if (item.location_type == "green" && item.beacon_user == "Ranneke4") {
-                        return <View>
-                        <Card>
-
-                        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                <Left>
-                <Thumbnail source={require('./img/beaconuser4.jpg')} style={[styles.thumbnail]} />
-                <Body>
-                <Text style={styles.uploaderName}> {item.beacon_user}</Text>
-                </Body>
-                </Left>
-                <Right>
-                        <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}> {item.receiver_location}</Text>
-                </Right>
-                </CardItem>
-                </Card>
-                             </View>
-
-                    }
-                }
+            
+             <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+            <Left>
+            <Thumbnail source={require('./img/curie.jpg')} style={[styles.thumbnail]} />
+            <Body>
+            <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+            </Body>
+            </Left>
+            <Right>
+                    <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.location}</Text>
+            </Right>
+            </CardItem>
+            </Card>
+        </View>
                     
-                }
-                keyExtractor={item => item.beacon_user}
-            />
-            </View>
-        );
+            }
+
+            else if (item.status == "alarm" && item.tenant_id == "2020TNT3") {
+                return <View>
+                    <Card>
+
+                    <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+            <Left>
+            <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
+            <Body>
+            <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+            </Body>
+            </Left>
+            <Right>
+                    <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.location}</Text>
+            </Right>
+            </CardItem>
+            </Card>
+                         </View>
+            }
+
+            else if (item.status == "alarm" && item.tenant_id == "2020TNT4") {
+                return <View>
+                <Card>
+
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+        <Left>
+        <Thumbnail source={require('./img/mgm.jpg')} style={[styles.thumbnail]} />
+        <Body>
+        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+        </Body>
+        </Left>
+        <Right>
+                <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.location}</Text>
+        </Right>
+        </CardItem>
+        </Card>
+                     </View>
+            }
+
+            else if (item.status == "go check" && item.tenant_id == "2020TNT1") {
+                return <View>
+                <Card>
+
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+        <Left>
+        <Thumbnail source={require('./img/einstein.jpg')} style={[styles.thumbnail]}/>
+        <Body>
+        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+        </Body>
+        </Left>
+        <Right>
+                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.location}</Text>
+        </Right>
+        </CardItem>
+        </Card>
+                     </View>
+            }
+            else if (item.status == "go check" && item.tenant_id == "2020TNT2") {
+                return <View>
+                <Card>
+
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+        <Left>
+        <Thumbnail source={require('./img/curie.jpg')} style={[styles.thumbnail]} />
+        <Body>
+        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+        </Body>
+        </Left>
+        <Right>
+                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>{item.location}</Text>
+        </Right>
+        </CardItem>
+        </Card>
+                     </View>
+            }
+
+            else if (item.status == "go check" && item.tenant_id == "2020TNT3") {
+                return <View>
+                <Card>
+
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+        <Left>
+        <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
+        <Body>
+        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+        </Body>
+        </Left>
+        <Right>
+                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>{item.location}</Text>
+        </Right>
+        </CardItem>
+        </Card>
+                     </View>
+            }
+
+            else if (item.status == "go check" && item.tenant_id == "2020TNT4") {
+                return <View>
+                <Card>
+
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+        <Left>
+        <Thumbnail source={require('./img/mgm.jpg')} style={[styles.thumbnail]} />
+        <Body>
+        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+        </Body>
+        </Left>
+        <Right>
+                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.location}</Text>
+        </Right>
+        </CardItem>
+        </Card>
+                     </View>
+
+            }
+            else if (item.status == "ok" && item.tenant_id == "2020TNT1") {
+              return <View>
+              <Card>
+
+              <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+      <Left>
+      <Thumbnail source={require('./img/einstein.jpg')} style={[styles.thumbnail]}/>
+      <Body>
+      <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+      </Body>
+      </Left>
+      <Right>
+              <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}> {item.location}</Text>
+      </Right>
+      </CardItem>
+      </Card>
+                   </View>
+          }
+          else if (item.status == "ok" && item.tenant_id == "2020TNT2") {
+              return <View>
+              <Card>
+
+              <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+      <Left>
+      <Thumbnail source={require('./img/curie.jpg')} style={[styles.thumbnail]} />
+      <Body>
+      <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+      </Body>
+      </Left>
+      <Right>
+              <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>{item.location}</Text>
+      </Right>
+      </CardItem>
+      </Card>
+                   </View>
+          }
+
+          else if (item.status == "ok" && item.tenant_id == "2020TNT3") {
+              return <View>
+              <Card>
+
+              <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+      <Left>
+      <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
+      <Body>
+      <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+      </Body>
+      </Left>
+      <Right>
+              <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}>{item.location}</Text>
+      </Right>
+      </CardItem>
+      </Card>
+                   </View>
+          }
+
+          else if (item.status == "ok" && item.tenant_id == "2020TNT4") {
+              return <View>
+              <Card>
+
+              <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+      <Left>
+      <Thumbnail source={require('./img/mgm.jpg')} style={[styles.thumbnail]} />
+      <Body>
+      <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+      </Body>
+      </Left>
+      <Right>
+              <Text style={[styles.textFlatlistStyle, {backgroundColor: "green"}]}> {item.location}</Text>
+      </Right>
+      </CardItem>
+      </Card>
+                   </View>
+
+          }   
+        }
+            
+        }
+        keyExtractor={item => item.tenant_id}
+    />
+    </View>
+);
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flex: 1,
-        paddingTop: 50,
-        backgroundColor:'rgb(178, 223, 219)'
-    },
+container: {
+flexDirection: 'row',
+alignItems: 'center',
+flex: 1,
+paddingTop: 50,
+backgroundColor:'rgb(178, 223, 219)'
+},
 
-    textFlatlistStyle: {
-        flex: 1,
-        padding:15,
-        fontSize: 13,
-        backgroundColor: '#DFDFDF',
-        paddingHorizontal: 10,
-        borderRadius:  10,
-        textAlign: "center",
-        fontWeight: 'bold'
-        
-    },
+textFlatlistStyle: {
+flex: 1,
+padding:15,
+fontSize: 15,
+backgroundColor: '#DFDFDF',
+paddingHorizontal: 10,
+borderRadius:  10,
+textAlign: "center",
+fontWeight: 'bold'
 
-    thumbnail:{
-        height:60,
-        width: 60
-    }
+},
+
+thumbnail:{
+height:65,
+width: 65
+},
+
+uploaderName:{
+  textAlign: "center",
+  justifyContent: "center"
+}
 })
