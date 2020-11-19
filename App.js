@@ -17,8 +17,8 @@ import { Text, View, Button, Platform,Linking, } from 'react-native';
 import axios from 'axios';
 
 const Tab = createBottomTabNavigator();
-const PUSH_ENDPOINT = 'http://192.168.1.197:3000/api/push_notification/push_token';
-const PUSH_ENDPOINT2 = "http://192.168.1.197:3000/api/push_notification/message"
+const PUSH_ENDPOINT = 'http://192.168.11.35:4000/api/push_notification/push_token';
+const PUSH_ENDPOINT2 = "http://192.168.11.35:4000/api/push_notification/message"
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -82,7 +82,7 @@ export default function App() {
     
       }),
     });
-  
+    console.log('post token', token)
     return token;
   }
   return (
