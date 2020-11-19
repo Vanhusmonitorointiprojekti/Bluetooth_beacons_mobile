@@ -7,6 +7,7 @@ import Beacon_test from "./src/www/pages/beacontest";
 import Beacon_halyt from "./src/www/pages/beacon_halyt";
 import Asukastietoja from './src/www/pages/asukastietoja'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ilmoitus from './src/www/pages/push';
 //import { Image } from 'native-base';
 
 
@@ -36,6 +37,9 @@ export default function App() {
                     else if (route.name === 'Asukastietoja') {
                       iconName =  'account-circle';
                     }
+                    else if (route.name === 'Ilmoitus') {
+                      iconName =  'account-circle';
+                    }
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                   },
                 })}
@@ -49,6 +53,7 @@ export default function App() {
           <Tab.Screen name="Asukassijainnit" component={Beacon_test} />
           <Tab.Screen name="Hälytykset" component={Beacon_halyt} />
           <Tab.Screen name="Asukastietoja" component={Asukastietoja} />
+          <Tab.Screen name="Ilmoitus" component={Ilmoitus} />
         </Tab.Navigator>
       </NavigationContainer>
       

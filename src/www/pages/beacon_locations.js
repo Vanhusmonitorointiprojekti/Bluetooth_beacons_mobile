@@ -1,34 +1,19 @@
-
 import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
-    StyleSheet, FlatList
+    StyleSheet, FlatList, 
 } from 'react-native';
-import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
-function Item({ item }) {
-  return (
-    <View>
-        <Card>
-        <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-        <Left>
-            <Text style={{fontWeight:"bold"}}>{item.firstname} {item.lastname}  </Text>
-        </Left>
-        <Right>
-             <Text>Sijainti: {item.location}</Text>
-             <Text> {item.status}</Text>
-        </Right>
-        </CardItem>
-        </Card>
-    </View>
-  );
-}
+import { Container, Header, Content, SafeAreaView, StatusBar,  CardItem, Thumbnail,  Button, Left, Body, Right,Card } from 'native-base';
+import {Picker} from '@react-native-picker/picker';
 
-
-export default function Locations_info() {
+export default function Hälytykset() {
+    
 
   const [tieto, setTieto] = useState([]);
-
+    
+  const [status, setStatus] = useState('checked');
+  const [selectedValue, setSelectedValue] = useState("todo");
 
   useEffect (() => {
       // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
@@ -40,38 +25,174 @@ export default function Locations_info() {
           })
   }, []);
 
+  const onButtonToggle = value => {
+    setStatus(status === 'checked' ? 'unchecked' : 'checked');
+  };
+  
 
-      return (
-          <View style={styles.container}>
-          <FlatList
-            style={{flex:1}}
-            data={tieto}
-            renderItem={({ item }) => <Item item={item}/>}
-            keyExtractor={item => item.tenant_id}
-          />   
+  return (
+    <View style={styles.container}>
+            
+    <FlatList style={{}}
+        data={tieto}    
+        renderItem={({item}) => {
+
+            if (item.status == "alarm" && item.tenant_id == "2020TNT1") {
+                return  <View>
+                    <Card>    
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+                    <Left>
+                    <Thumbnail source={require('./img/einstein.jpg')} style={[styles.thumbnail]} />
+                    <Body>
+                    <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+                  </Body>
+                     </Left>
+            <Right>
+  
+            </Right>
+            </CardItem>
+            </Card>
           </View>
-    );
-  }
+            }
 
+            else if (item.status == "alarm" && item.tenant_id == "2020TNT2") {
+                return <View>
+                <Card>
+
+            
+             <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+            <Left>
+            <Thumbnail source={require('./img/curie.jpg')} style={[styles.thumbnail]} />
+            <Body>
+            <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+            </Body>
+            </Left>
+            <Right>
+    
+            </Right>
+            </CardItem>
+            </Card>
+        </View>
+                    
+            }
+
+            else if (item.status == "alarm" && item.tenant_id == "2020TNT3") {
+                return <View>
+                    <Card>
+
+                    <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+            <Left>
+            <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
+            <Body>
+            <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+            </Body>
+            </Left>
+            <Right>
+      
+                    
+            </Right>
+            </CardItem>
+            </Card>
+                         </View>
+            }
+
+            else if (item.status == "alarm" && item.tenant_id == "2020TNT4") {
+                return <View>
+                <Card>
+
+                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+        <Left>
+        <Thumbnail source={require('./img/mgm.jpg')} style={[styles.thumbnail]} />
+        <Body>
+        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+        </Body>
+        </Left>
+        <Right>
+    <Picker
+        selectedValue={selectedValue}
+        style={{ height: 20, width: 130 }}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        id="4"
+      >
+        <Picker.Item label="Avoin" value="todo" id="4" />
+        <Picker.Item label="Kuitattu" value="doing"id="4"  />
+        <Picker.Item label="Hoidettu" value="done" id="4" />
+      </Picker>
+
+        </Right>
+        </CardItem>
+        </Card>
+                     </View>
+            }
+            else if (item.status == "go check" && item.tenant_id == "2020TNT3") {
+                return <View>
+                    <Card>
+
+                    <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+            <Left>
+            <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
+            <Body>
+            <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+            </Body>
+            </Left>
+            <Right>
+            <Picker
+           
+        selectedValue={selectedValue}
+        style={{ height: 20, width: 130 }}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        id="5"
+      >
+        <Picker.Item label="Avoin" value="todo" id ="5"/>
+        <Picker.Item label="Kuitattu" value="doing" id ="5" />
+        <Picker.Item label="Hoidettu" value="done" id ="5" />
+      </Picker>
+      
+            </Right>
+            </CardItem>
+            </Card>
+                         </View>
+            }
+        }
+            
+    }
+    keyExtractor={item => item.tenant_id}
+/>
+</View>
+
+);
+}
 
 const styles = StyleSheet.create({
-  container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flex: 1,
-      paddingTop: 50,
-      backgroundColor:'rgb(178, 223, 219)'
-  },
+container: {
+flexDirection: 'row',
+alignItems: 'center',
+flex: 1,
+paddingTop: 50,
+backgroundColor:'rgb(178, 223, 219)'
+},
 
-  
-  listItem:{
-      margin:10,
-      padding:10,
-      backgroundColor:"#FFF",
-      width:"80%",
-      flex:1,
-      alignSelf:"center",
-      flexDirection:"row",
-      borderRadius:5
-    }
-})
+textFlatlistStyle: {
+flex: 1,
+padding:15,
+fontSize: 15,
+backgroundColor: '#DFDFDF',
+paddingHorizontal: 10,
+borderRadius:  10,
+textAlign: "center",
+fontWeight: 'bold'
+
+},
+
+thumbnail:{
+height:65,
+width: 65
+},
+
+uploaderName:{
+textAlign: "center",
+justifyContent: "center"
+},
+
+})  
+
