@@ -25,8 +25,12 @@ export default function App() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const url = response.notification.request.content.data.url;
+       // const url ='https://www.hel.fi/helsinki/fi'
 
   useEffect(() => {
+    
+
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -35,11 +39,16 @@ export default function App() {
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
+      Linking.openUrl(url);
     });
 
+    
+  
+ 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
+      subscription.remove();
     };
   }, []);
   

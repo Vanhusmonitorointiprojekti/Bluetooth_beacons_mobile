@@ -38,7 +38,7 @@ export default function App() {
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-          //await schedulePushNotification();
+         // await schedulePushNotification();
           await sendNotification();
         }}
       />
@@ -89,6 +89,7 @@ async function schedulePushNotification() {
   });
 }
 
+{/*
 async function registerForPushNotificationsAsync() {
   let token;
   if (Constants.isDevice) {
@@ -131,13 +132,14 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-
+*/}
 const sendNotification = async () => {
   const title = "joku karkaamassa"
   const body = "Hälytys, joku karkaamassa!"
-  const link ="https://docs.expo.io/push-notifications/sending-notifications-custom/"
+  const badge = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fpreviews.123rf.com%2Fimages%2Ffaysalfarhan%2Ffaysalfarhan1711%2Ffaysalfarhan171111804%2F89277371-alarm-bell-icon-isolated-on-red-square-button-reflected-abstract-illustration.jpg&imgrefurl=https%3A%2F%2Fwww.123rf.com%2Fphoto_89277371_stock-illustration-alarm-bell-icon-isolated-on-red-square-button-reflected-abstract-illustration.html&tbnid=yPGanPxBJjSJGM&vet=12ahUKEwiflZSp_I7tAhVBgosKHUBmCDAQMygQegUIARDSAQ..i&docid=c_YpPGrTWsRr3M&w=1089&h=1300&q=alarm&ved=2ahUKEwiflZSp_I7tAhVBgosKHUBmCDAQMygQegUIARDSAQ"
+   
   const req = await axios.post(PUSH_ENDPOINT2, {
     title,
-    body,link
+    body
   })
 }

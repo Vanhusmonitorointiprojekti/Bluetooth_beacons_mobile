@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
-    StyleSheet, FlatList
+    StyleSheet, FlatList, TouchableHighlight
 } from 'react-native';
 import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
-import { Avatar } from "react-native-elements";
+import socketIOClient from "socket.io-client";
 
 
 export default function Locations_info() {
@@ -15,14 +15,22 @@ export default function Locations_info() {
 
 
   useEffect (() => {
-      // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
+      
       fetch('https://www.vanhusmonitorointi.tk/statuses')
           .then((response) => response.json())
           .then(responseJson => {
               setTieto(...tieto, responseJson)
               console.log(tieto)
-          })
-  }, []);
+
+              socket = socketIOClient("https://www.vanhusmonitorointi.tk/changes");
+                socket.on("emitSocket", data =>  {
+                setTieto(...tieto, data);
+                
+            });
+        });
+    
+}, []);
+
 
   return (
     <View style={styles.container}>
@@ -42,7 +50,10 @@ export default function Locations_info() {
                   </Body>
                      </Left>
             <Right>
-                <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.location}</Text>
+               <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.location}</Text>
+                <TouchableHighlight {...touchProps}>
+        <Text>Click here</Text>
+      </TouchableHighlight>
             </Right>
             </CardItem>
             </Card>
@@ -101,7 +112,11 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-                <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.location}</Text>
+        
+              {/*  <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.location}</Text>
+                <TouchableHighlight {...touchProps}>
+        <Text>Click here</Text>
+      </TouchableHighlight>*/}
         </Right>
         </CardItem>
         </Card>
