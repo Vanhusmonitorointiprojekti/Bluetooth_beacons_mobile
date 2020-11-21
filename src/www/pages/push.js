@@ -12,6 +12,7 @@ import axios from 'axios';
 
 const PUSH_ENDPOINT = 'http://192.168.1.197:3000/api/push_notification/push_token';
 const PUSH_ENDPOINT2 = "http://192.168.1.197:3000/api/push_notification/message"
+const PUSH_ENDPOINT3= "http://192.168.1.197:3000/api/push_notification/checked"
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -21,8 +22,46 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
+
+const sendChecked = async () => {
+  const data = "Herra Einstein on kuitattu" 
+  const req =await axios.post(PUSH_ENDPOINT3, {
+    data
+  },
+  console.log('Viesti:', data))
+  
+}
+
+const data="moi";
+
+const loginUser = async() => {
+  const req =await axios.post(PUSH_ENDPOINT3, {
+    data
+  },
+  console.log('Viesti:', data))
  
+};
+
+export default function App() {
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+  useEffect(() => {
+   
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
+    };
+  }, []);
   return (
     
     <View
@@ -33,13 +72,24 @@ export default function App() {
       }}>
      
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        
+    
+       
       </View>
+      <Button
+          title="Lähetä kuittaus"
+          onPress={sendChecked}
+       
+        />
+        <Button
+          title="TESTI"
+          onClick={loginUser}
+       
+        />
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-         // await schedulePushNotification();
-          await sendNotification();
+         //await schedulePushNotification();
+           await sendNotification();
         }}
       />
       <Button
@@ -136,7 +186,7 @@ async function registerForPushNotificationsAsync() {
 const sendNotification = async () => {
   const title = "joku karkaamassa"
   const body = "Hälytys, joku karkaamassa!"
-  const badge = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fpreviews.123rf.com%2Fimages%2Ffaysalfarhan%2Ffaysalfarhan1711%2Ffaysalfarhan171111804%2F89277371-alarm-bell-icon-isolated-on-red-square-button-reflected-abstract-illustration.jpg&imgrefurl=https%3A%2F%2Fwww.123rf.com%2Fphoto_89277371_stock-illustration-alarm-bell-icon-isolated-on-red-square-button-reflected-abstract-illustration.html&tbnid=yPGanPxBJjSJGM&vet=12ahUKEwiflZSp_I7tAhVBgosKHUBmCDAQMygQegUIARDSAQ..i&docid=c_YpPGrTWsRr3M&w=1089&h=1300&q=alarm&ved=2ahUKEwiflZSp_I7tAhVBgosKHUBmCDAQMygQegUIARDSAQ"
+  
    
   const req = await axios.post(PUSH_ENDPOINT2, {
     title,

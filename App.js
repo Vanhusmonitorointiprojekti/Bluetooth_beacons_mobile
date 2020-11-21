@@ -1,9 +1,8 @@
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Asukas_info from "./src/www/pages/asukas_tiedot";
-import Locations_info from "./src/www/pages/beacon_locations";
-import Beacon_test from "./src/www/pages/beacontest";
+import Alasveto from "./src/www/pages/dropdown_alarm";
+import All_Asukassijainti from "./src/www/pages/locations_info";
 import Beacon_halyt from "./src/www/pages/beacon_halyt";
 import Asukastietoja from './src/www/pages/asukastietoja'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -25,12 +24,8 @@ export default function App() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const url = response.notification.request.content.data.url;
-       // const url ='https://www.hel.fi/helsinki/fi'
 
   useEffect(() => {
-    
-
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -39,16 +34,11 @@ export default function App() {
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
-      Linking.openUrl(url);
     });
 
-    
-  
- 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
-      subscription.remove();
     };
   }, []);
   
@@ -128,9 +118,9 @@ export default function App() {
                   inactiveTintColor: 'rgb(0, 150, 136)',
                 }}
               >
-          <Tab.Screen name="Sijaintitiedot" component={Locations_info} />
+          <Tab.Screen name="Sijaintitiedot" component={Alasveto} />
           <Tab.Screen name="Asukas tiedot" component={Asukas_info} />
-          <Tab.Screen name="Asukassijainnit" component={Beacon_test} />
+          <Tab.Screen name="Asukassijainnit" component={All_Asukassijainti} />
           <Tab.Screen name="Hälytykset" component={Beacon_halyt} />
           <Tab.Screen name="Asukastietoja" component={Asukastietoja} />
           <Tab.Screen name="Ilmoitus" component={Ilmoitus} />

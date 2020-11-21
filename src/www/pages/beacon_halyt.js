@@ -3,16 +3,37 @@ import React, { useState, useEffect } from 'react';
 import {
     Text,
     View,
-    StyleSheet, FlatList, TouchableHighlight
+    StyleSheet, FlatList, TouchableOpacity
 } from 'react-native';
-import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
+import {  CardItem, Thumbnail, Left, Body, Right,Card } from 'native-base';
 import socketIOClient from "socket.io-client";
+import axios from 'axios';
 
+
+const PUSH_ENDPOINT3= "http://192.168.1.197:3000/api/push_notification/checked"
 
 export default function Locations_info() {
 
   const [tieto, setTieto] = useState([]);
+  
+  const sendChecked = async () => {
+    const data = "Herra Einstein on kuitattu" 
+    const req =await axios.post(PUSH_ENDPOINT3, {
+      data
+    },
+    console.log('Viesti:', data))
+    
+  }
 
+  
+  
+
+  const sendTenantID = async(data) =>{
+    const req =await axios.post(PUSH_ENDPOINT3, {
+        data
+      },
+      console.log('Viesti:', data))
+  }
 
   useEffect (() => {
       
@@ -22,7 +43,7 @@ export default function Locations_info() {
               setTieto(...tieto, responseJson)
               console.log(tieto)
 
-              socket = socketIOClient("https://www.vanhusmonitorointi.tk/changes");
+              const socket = socketIOClient("https://www.vanhusmonitorointi.tk/changes");
                 socket.on("emitSocket", data =>  {
                 setTieto(...tieto, data);
                 
@@ -42,42 +63,41 @@ export default function Locations_info() {
             if (item.status == "alarm" && item.tenant_id == "2020TNT1") {
                 return  <View>
                     <Card>    
-                <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-                    <Left>
-                    <Thumbnail source={require('./img/einstein.jpg')} style={[styles.thumbnail]} />
-                    <Body>
-                    <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
-                  </Body>
+                     <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+                     <Left>
+                     <Thumbnail source={require('./img/einstein.jpg')} style={[styles.thumbnail]} />
+                     <Body>
+                         <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+                     </Body>
                      </Left>
-            <Right>
-               <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.location}</Text>
-                <TouchableHighlight {...touchProps}>
-        <Text>Click here</Text>
-      </TouchableHighlight>
-            </Right>
-            </CardItem>
-            </Card>
-          </View>
+                     <Right>
+                     <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                            <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                    </TouchableOpacity>
+                    </Right>
+                    </CardItem>
+                    </Card>
+                </View>
             }
 
             else if (item.status == "alarm" && item.tenant_id == "2020TNT2") {
                 return <View>
                 <Card>
-
-            
-             <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-            <Left>
-            <Thumbnail source={require('./img/curie.jpg')} style={[styles.thumbnail]} />
-            <Body>
-            <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
-            </Body>
-            </Left>
-            <Right>
-                    <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.location}</Text>
-            </Right>
-            </CardItem>
-            </Card>
-        </View>
+                    <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
+                    <Left>
+                    <Thumbnail source={require('./img/curie.jpg')} style={[styles.thumbnail]} />
+                    <Body>
+                    <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+                    </Body>
+                    </Left>
+                    <Right>
+                    <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                    </TouchableOpacity>
+                    </Right>
+                    </CardItem>
+                </Card>
+                </View>
                     
             }
 
@@ -93,7 +113,9 @@ export default function Locations_info() {
             </Body>
             </Left>
             <Right>
-                    <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}> {item.location}</Text>
+            <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            </TouchableOpacity>
             </Right>
             </CardItem>
             </Card>
@@ -101,6 +123,8 @@ export default function Locations_info() {
             }
 
             else if (item.status == "alarm" && item.tenant_id == "2020TNT4") {
+               
+                console.log("Koe",item.tenant_id)
                 return <View>
                 <Card>
 
@@ -109,14 +133,13 @@ export default function Locations_info() {
         <Thumbnail source={require('./img/mgm.jpg')} style={[styles.thumbnail]} />
         <Body>
         <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+      
         </Body>
         </Left>
         <Right>
-        
-              {/*  <Text style={[styles.textFlatlistStyle, {backgroundColor: "red"}]}>{item.location}</Text>
-                <TouchableHighlight {...touchProps}>
-        <Text>Click here</Text>
-      </TouchableHighlight>*/}
+            <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -135,7 +158,9 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.location}</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -153,7 +178,9 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>{item.location}</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -163,20 +190,22 @@ export default function Locations_info() {
             else if (item.status == "go check" && item.tenant_id == "2020TNT3") {
                 return <View>
                 <Card>
-
                 <CardItem style={{height: 78,borderBottomWidth:1,borderColor: '#dadddf'}}>
-        <Left>
-        <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
-        <Body>
-        <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
-        </Body>
-        </Left>
-        <Right>
-                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}>{item.location}</Text>
-        </Right>
-        </CardItem>
-        </Card>
-                     </View>
+                <Left>
+                <Thumbnail source={require('./img/darwin.jpg')} style={[styles.thumbnail]} />
+                <Body>
+                     <Text style={styles.uploaderName}> {item.firstname} {item.lastname}</Text>
+                </Body>
+                </Left>
+                <Right>
+                    <TouchableOpacity style={styles.button} onPress={sendChecked}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                    </TouchableOpacity>
+                </Right>
+                </CardItem>
+        
+                </Card>
+            </View>
             }
 
             else if (item.status == "go check" && item.tenant_id == "2020TNT4") {
@@ -191,7 +220,9 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-                <Text style={[styles.textFlatlistStyle, {backgroundColor: "yellow"}]}> {item.location}</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -232,5 +263,10 @@ fontWeight: 'bold'
 thumbnail:{
 height:60,
 width: 60
-}
+},
+button: {
+    alignItems: "center",
+    backgroundColor: "rgb(0, 150, 136)",
+    padding: 10
+  },
 })
