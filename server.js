@@ -17,12 +17,6 @@ const saveToken = token => {
     }
   };
 
-const savedData=[];
-  const saveData = data => {
-      savedData.push(data);
-    
-  };
-
 // default route
 app.get('/', function (req, res) {
     return res.send({ error: true, message: 'hello' })
@@ -89,7 +83,7 @@ app.get("/api/push_notification/push_token", (req, res) => {
     res.send(`${savedPushTokens}`);
   });
 
-  app.post('/api/push_notification/checked', function (req, res) {
+  app.post('/statuses/checked', function (req, res) {
     console.log("Received checked:", req.body.data)
     res.send(`Received message, with title: ${req.body.data}`)
   });

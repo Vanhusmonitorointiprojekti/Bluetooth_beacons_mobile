@@ -10,22 +10,11 @@ import socketIOClient from "socket.io-client";
 import axios from 'axios';
 
 
-const PUSH_ENDPOINT3= "http://192.168.1.197:3000/api/push_notification/checked"
+const PUSH_ENDPOINT3= "http://192.168.1.197:3000/statuses/checked"
 
 export default function Locations_info() {
 
   const [tieto, setTieto] = useState([]);
-  
-  const sendChecked = async () => {
-    const data = "Herra Einstein on kuitattu" 
-    const req =await axios.post(PUSH_ENDPOINT3, {
-      data
-    },
-    console.log('Viesti:', data))
-    
-  }
-
-  
   
 
   const sendTenantID = async(data) =>{
@@ -198,9 +187,9 @@ export default function Locations_info() {
                 </Body>
                 </Left>
                 <Right>
-                    <TouchableOpacity style={styles.button} onPress={sendChecked}>
-                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            </TouchableOpacity>
                 </Right>
                 </CardItem>
         
