@@ -8,15 +8,15 @@ import {
 import {  CardItem, Thumbnail, Left, Body, Right,Card } from 'native-base';
 import socketIOClient from "socket.io-client";
 import axios from 'axios';
+import {  Badge } from 'react-native-elements'
 
-
-const PUSH_ENDPOINT3= "http://192.168.11.35:4000/statuses/"
+const PUSH_ENDPOINT3= "http://192.168.1.197:4000/statuses/"
 
 export default function Locations_info() {
 
   const [tieto, setTieto] = useState([]);
   const [changes, setChanges] = useState([])
-  
+  const [badgestatus, setBadgeStatus] = useState('error');
 
   const sendTenantID = async(data) =>{
       let checked = true
@@ -24,7 +24,10 @@ export default function Locations_info() {
       console.log('Viesti:', data)
   }
 
-  
+  const ChangeStatus = async() =>{
+    setBadgeStatus(badgestatus === 'error' ? 'success' : 'error')
+    }
+    
   useEffect (() => {    
       axios.get('https://www.vanhusmonitorointi.tk/statuses')
           .then((response) => setTieto(response.data))
@@ -60,8 +63,9 @@ export default function Locations_info() {
                      </Body>
                      </Left>
                      <Right>
-                     <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                            <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                     <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
                     </TouchableOpacity>
                     </Right>
                     </CardItem>
@@ -80,8 +84,9 @@ export default function Locations_info() {
                     </Body>
                     </Left>
                     <Right>
-                    <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
+                    <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
                         <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
                     </TouchableOpacity>
                     </Right>
                     </CardItem>
@@ -102,8 +107,9 @@ export default function Locations_info() {
             </Body>
             </Left>
             <Right>
-            <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+            <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
             </TouchableOpacity>
             </Right>
             </CardItem>
@@ -126,9 +132,10 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-            <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
+        </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -147,9 +154,10 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
+         </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -167,9 +175,10 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
+          </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
@@ -187,9 +196,10 @@ export default function Locations_info() {
                 </Body>
                 </Left>
                 <Right>
-                <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
+                </TouchableOpacity>
                 </Right>
                 </CardItem>
         
@@ -209,9 +219,10 @@ export default function Locations_info() {
         </Body>
         </Left>
         <Right>
-        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}}>
-                <Text style={{color:'white'}}>Kuittaa hälytys</Text>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+                        <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+                        <Badge status={badgestatus}/>
+         </TouchableOpacity>
         </Right>
         </CardItem>
         </Card>
