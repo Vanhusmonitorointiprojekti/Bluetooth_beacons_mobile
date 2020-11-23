@@ -10,7 +10,7 @@ import socketIOClient from "socket.io-client";
 import axios from 'axios';
 
 
-const PUSH_ENDPOINT3= "http://192.168.1.197:3000/statuses/checked"
+const PUSH_ENDPOINT3= "http://192.168.11.35:4000/statuses/"
 
 export default function Locations_info() {
 
@@ -18,10 +18,9 @@ export default function Locations_info() {
   
 
   const sendTenantID = async(data) =>{
-    const req =await axios.post(PUSH_ENDPOINT3, {
-        data
-      },
-      console.log('Viesti:', data))
+      let checked = true
+      const req = await axios.put(`${PUSH_ENDPOINT3}/${data}`, { checked })
+      console.log('Viesti:', data)
   }
 
   useEffect (() => {
