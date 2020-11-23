@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
 import { Avatar } from "react-native-elements";
-
+import axios from 'axios';
+import socketIOClient from "socket.io-client";
 
 export default function Locations_info() {
 
@@ -15,13 +16,25 @@ export default function Locations_info() {
 
 
   useEffect (() => {
-      // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
-      fetch('https://www.vanhusmonitorointi.tk/statuses')
-          .then((response) => response.json())
-          .then(responseJson => {
-              setTieto(...tieto, responseJson)
-              console.log(tieto)
-          })
+        let newArray = []
+      // Put your Ipv4 address here for example http://000.000.0.0:4000/statuses
+        axios.get('https://www.vanhusmonitorointi.tk/statuses')
+          .then((response) => {
+                setTieto(response.data)
+                newArray = response.data
+        })
+        console.log('tieto alussa', tieto)
+        const socket = socketIOClient("http://195.148.21.28:4002");
+        
+        socket.on("updates", async data =>  {
+            console.log('update', data)
+            newArray = await newArray.filter(t => t.tenant_id !== data.tenant_id).concat(data)        
+            console.log('newArray', newArray)
+            await setTieto(newArray)           
+        });
+        // CLEAN UP THE EFFECT 
+        // https://www.valentinog.com/blog/socket-react/
+        return () => socket.disconnect();
   }, []);
 
   return (
