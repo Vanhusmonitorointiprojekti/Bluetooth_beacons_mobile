@@ -62,7 +62,7 @@ app.get('/list', function (req, res)  {
 
  app.post('/api/push_notification/push_token', function (req, res) {
     saveToken(req.body.token)
-    console.log("Vastaanotettu testirekisteri.js:lta token",req.body.token)
+    console.log("Vastaanotettu frontilta token",req.body.token)
     connection.query("INSERT INTO pushtokens (pushtoken) VALUES (?) ", [req.body.token], function (error, results) {
   if (error) throw error;
     return res.send({ error: false, data: results, message: 'New token has been created successfully.' });
@@ -81,6 +81,11 @@ app.get("/api/push_notification/push_token", (req, res) => {
     console.log(savedPushTokens);
     console.log(`Välittyykö token,  ${savedPushTokens}`);
     res.send(`${savedPushTokens}`);
+  });
+
+  app.post('/statuses/checked', function (req, res) {
+    console.log("Received checked:", req.body.data)
+    res.send(`Received message, with title: ${req.body.data}`)
   });
 
   // Portti

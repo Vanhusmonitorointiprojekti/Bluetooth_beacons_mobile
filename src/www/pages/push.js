@@ -1,17 +1,17 @@
 // https://docs.expo.io/versions/latest/sdk/notifications/, lisätty sendNotification-funktio
 // joka käynnistyy painettaessa nappia schedulePushNotification-funktion sijaan!
 
-import Constants from 'expo-constants';
+
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Text, View, Button, Platform,Linking, } from 'react-native';
 import axios from 'axios';
 
 
 
-const PUSH_ENDPOINT = 'http://192.168.11.35:4000/api/push_notification/push_token'
+// const PUSH_ENDPOINT = 'http://192.168.11.35:4000/api/push_notification/push_token'
 const PUSH_ENDPOINT2 = "http://192.168.11.35:4000/api/push_notification/message"
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -21,8 +21,27 @@ Notifications.setNotificationHandler({
   }),
 });
 
+
 export default function App() {
- 
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+  useEffect(() => {
+   
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
+    };
+  }, []);
   return (
     
     <View
@@ -33,13 +52,14 @@ export default function App() {
       }}>
      
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        
+    
+       
       </View>
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-          //await schedulePushNotification();
-          await sendNotification();
+         //await schedulePushNotification();
+           await sendNotification();
         }}
       />
       <Button
@@ -89,55 +109,13 @@ async function schedulePushNotification() {
   });
 }
 
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  fetch(PUSH_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      token
-  
-    }),
-  });
-
-  return token;
-}
-
 const sendNotification = async () => {
   const title = "joku karkaamassa"
   const body = "Hälytys, joku karkaamassa!"
-  const link ="https://docs.expo.io/push-notifications/sending-notifications-custom/"
+  
+   
   const req = await axios.post(PUSH_ENDPOINT2, {
     title,
-    body,link
+    body
   })
 }

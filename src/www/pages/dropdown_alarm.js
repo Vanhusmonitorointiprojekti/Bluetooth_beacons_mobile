@@ -7,7 +7,7 @@ import {
 import { Container, Header, Content, SafeAreaView, StatusBar,  CardItem, Thumbnail,  Button, Left, Body, Right,Card } from 'native-base';
 import {Picker} from '@react-native-picker/picker';
 
-export default function Hälytykset() {
+export default function Dropdown() {
     
 
   const [tieto, setTieto] = useState([]);
