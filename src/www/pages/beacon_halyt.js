@@ -15,6 +15,7 @@ const PUSH_ENDPOINT3= "http://192.168.11.35:4000/statuses/"
 export default function Locations_info() {
 
   const [tieto, setTieto] = useState([]);
+  const [changes, setChanges] = useState([])
   
 
   const sendTenantID = async(data) =>{
@@ -23,23 +24,23 @@ export default function Locations_info() {
       console.log('Viesti:', data)
   }
 
-  useEffect (() => {
-      
-      fetch('https://www.vanhusmonitorointi.tk/statuses')
-          .then((response) => response.json())
-          .then(responseJson => {
-              setTieto(...tieto, responseJson)
-              console.log(tieto)
-
-              const socket = socketIOClient("https://www.vanhusmonitorointi.tk/changes");
-                socket.on("emitSocket", data =>  {
-                setTieto(...tieto, data);
-                
-            });
+  
+  useEffect (() => {    
+      axios.get('https://www.vanhusmonitorointi.tk/statuses')
+          .then((response) => setTieto(response.data))
+        console.log('tieto alussa', tieto)
+        const socket = socketIOClient("http://195.148.21.28:4002");
+        let newArray = []
+        socket.on("updates", async data =>  {
+            console.log('update', data)
+            newArray = await newArray.filter(t => t.tenant_id !== data.tenant_id).concat(data)        
+            console.log('newArray', newArray)
+            await setTieto(newArray)           
         });
-    
+        // CLEAN UP THE EFFECT 
+        // https://www.valentinog.com/blog/socket-react/
+        return () => socket.disconnect();
 }, []);
-
 
   return (
     <View style={styles.container}>
@@ -112,7 +113,7 @@ export default function Locations_info() {
 
             else if (item.status == "alarm" && item.tenant_id == "2020TNT4") {
                
-                console.log("Koe",item.tenant_id)
+                //console.log("Koe",item.tenant_id)
                 return <View>
                 <Card>
 
