@@ -4,7 +4,8 @@ import Asukas_info from "./src/www/pages/asukas_tiedot";
 import Alasveto from "./src/www/pages/dropdown_alarm";
 import All_Asukassijainti from "./src/www/pages/locations_info";
 import Beacon_halyt from "./src/www/pages/beacon_halyt";
-import Asukastietoja from './src/www/pages/asukastietoja'
+import Asukastietoja from './src/www/pages/asukastietoja';
+import Häly from './src/www/pages/hälytys'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ilmoitus from './src/www/pages/push';
 //import { Image } from 'native-base';
@@ -107,6 +108,9 @@ export default function App() {
                     else if (route.name === 'Asukastietoja') {
                       iconName =  'account-circle';
                     }
+                    else if (route.name === 'Hälytys') {
+                      iconName =  'account-circle';
+                    }
                     else if (route.name === 'Ilmoitus') {
                       iconName =  'account-circle';
                     }
@@ -124,6 +128,7 @@ export default function App() {
           <Tab.Screen name="Hälytykset" component={Beacon_halyt} />
           <Tab.Screen name="Asukastietoja" component={Asukastietoja} />
           <Tab.Screen name="Ilmoitus" component={Ilmoitus} />
+          <Tab.Screen name="Häly" component={Häly} />
         </Tab.Navigator>
       </NavigationContainer>
       
