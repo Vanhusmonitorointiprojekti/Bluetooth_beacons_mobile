@@ -82,7 +82,7 @@ function Item({ item }) {
             
         </TouchableOpacity>
         </Right>
-        <Icon name={ikoni} />
+        <Icon name={ikoni} containerStyle={{ position: 'relative', top:1 , right: 1 , left: 2, paddingLeft:5}} />
       
         </CardItem>
         </Card>
