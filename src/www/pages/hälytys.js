@@ -8,14 +8,15 @@ import {
 import {  CardItem, Thumbnail, Left, Body, Right,Card } from 'native-base';
 import socketIOClient from "socket.io-client";
 import axios from 'axios';
-import {  Badge } from 'react-native-elements'
+import { Image, Badge,withBadge, Icon  } from 'react-native-elements'
 
 const PUSH_ENDPOINT3= "http://192.168.1.197:4000/statuses/"
 
 export default function Locations_info() {
 
   const [tieto, setTieto] = useState([]);
-  const [changes, setChanges] = useState([])
+  const [changes, setChanges] = useState([]);
+  
 
 
   const sendTenantID = async(data) =>{
@@ -23,6 +24,7 @@ export default function Locations_info() {
       const req = await axios.put(`${PUSH_ENDPOINT3}/${data}`, { checked })
       console.log('Viesti:', data)
   }
+  
 
   useEffect (() => {    
       axios.get('https://www.vanhusmonitorointi.tk/statuses')
@@ -35,6 +37,7 @@ export default function Locations_info() {
         const socket = socketIOClient("http://195.148.21.28:4002");
         let newArray = []
         let newArray2 =[]
+        
         socket.on("updates", async data =>  {
             console.log('update', data)
             newArray = await newArray.filter(t => t.tenant_id !== data.tenant_id).concat(data)        
@@ -51,11 +54,19 @@ export default function Locations_info() {
 }, []);
 
 
+
 function Item({ item }) {
     const [badgestatus, setBadgeStatus] = useState('error');
+    const [teksti, setTeksti]= useState(['Kuittaa hälytys']);
+    const [ikoni, setIkoni]= useState('error');
+    
     const ChangeStatus = async() =>{
         setBadgeStatus(badgestatus === 'error' ? 'success' : 'error')
+        setTeksti(teksti==='Kuittaa hälytys'? 'Kuittaa hälytys' : 'Hälytys kuitattu')
+        setIkoni(ikoni== 'error' ? 'check-circle' : 'error')
         }
+      
+
     return (
         <View>
         <Card>    
@@ -66,18 +77,32 @@ function Item({ item }) {
          </Body>
          </Left>
          <Right>
-         <TouchableOpacity style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
-            <Text style={{color:'white'}}>Kuittaa hälytys</Text>
+         <TouchableOpacity  style={styles.button} onPress={()=>{sendTenantID(item.tenant_id)}} onPressIn={ChangeStatus}>
+            <Text style={{color:'white'}}>{teksti}</Text>
             
         </TouchableOpacity>
         </Right>
-        <Badge status={badgestatus} value="" containerStyle={{ position: 'absolute', top: 15, right: 10 }} />
+        <Icon name={ikoni} />
+      
         </CardItem>
         </Card>
     </View>
     );
   }
+
+  if (tieto.length <= 0) {
+    console.log('testi', tieto.length)
+    return (
+      <View style={styles.noAlarmContainer}>
+        <Card >
+        <Image source={require('./img/einstein.jpg')} />
+        <Text style={styles.noAlarmText}>Ei hälytyksiä tällä hetkellä</Text>
+        </Card>
+      </View>
+    )
+  }
   return (
+    
     <View style={styles.container}>
           <FlatList
             style={{flex:1}}
@@ -117,5 +142,20 @@ button: {
     alignItems: "center",
     backgroundColor: "rgb(0, 150, 136)",
     padding: 10
+  },
+noAlarmText: {
+    fontSize: 30,
+    color: 'green',
+    alignItems: 'center',
+    padding:10,
+    textAlign:'center'
+    
+  },
+noAlarmContainer:{
+  flexDirection: 'row',
+  alignItems: 'center',
+  flex: 1,
+  paddingTop: 50,
+  backgroundColor:'rgb(178, 223, 219)'
   },
 })

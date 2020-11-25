@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mariadb = require('mariadb/callback');
 const { Expo } = require("expo-server-sdk");
+const { request } = require('express');
 const expo = new Expo();
 app.use(bodyParser.json());
 
@@ -83,10 +84,12 @@ app.get("/api/push_notification/push_token", (req, res) => {
     res.send(`${savedPushTokens}`);
   });
 
-  app.post('/statuses/checked', function (req, res) {
-    console.log("Received checked:", req.body.data)
-    res.send(`Received message, with title: ${req.body.data}`)
+  app.put('/statuses/:id', function (req, res) {
+    console.log("Received checked:", req.body.checked)
+    res.send(`Received message, with title: ${req.body.checked}`)
   });
+
+  
 
   // Portti
 app.listen(3000, function () {
