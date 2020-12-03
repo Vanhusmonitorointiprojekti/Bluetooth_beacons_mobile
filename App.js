@@ -1,13 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Asukas_info from "./src/www/pages/asukas_tiedot";
+//import Asukas_info from "./src/www/pages/asukas_tiedot";
 import Alasveto from "./src/www/pages/dropdown_alarm";
 import All_Asukassijainti from "./src/www/pages/locations_info";
-import Beacon_halyt from "./src/www/pages/beacon_halyt";
+//import Beacon_halyt from "./src/www/pages/beacon_halyt";
 import Asukastietoja from './src/www/pages/asukastietoja';
 import Häly from './src/www/pages/hälytys'
+import Asukasvalinta from './src/www/pages/asukasvalinta'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ilmoitus from './src/www/pages/push';
+//import Ilmoitus from './src/www/pages/push';
 //import { Image } from 'native-base';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
@@ -93,27 +94,22 @@ export default function App() {
                   tabBarIcon: ({  color, size }) => {
                     let iconName;
         
-                    if (route.name === 'Sijaintitiedot') {
-                      iconName =  'location-on'
+                    if (route.name === 'Asukassijainnit') {
+                      iconName =  'person-pin-circle'
                         ;
-                    } else if (route.name === 'Asukas tiedot') {
+                    } else if (route.name === 'Asukastiedot') {
                       iconName =  'account-circle';
-                    }
-                    else if (route.name === 'Asukassijainnit') {
-                      iconName =  'person-pin-circle';
                     }
                     else if (route.name === 'Hälytykset') {
                       iconName =  'warning';
                     }
-                    else if (route.name === 'Asukastietoja') {
-                      iconName =  'account-circle';
+                    else if (route.name === 'Kuittaustila') {
+                      iconName =  'check';
                     }
-                    else if (route.name === 'Hälytys') {
-                      iconName =  'account-circle';
+                    else if (route.name === 'Asukasvalinta') {
+                      iconName =  'person-add';
                     }
-                    else if (route.name === 'Ilmoitus') {
-                      iconName =  'account-circle';
-                    }
+                    
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                   },
                 })}
@@ -122,13 +118,11 @@ export default function App() {
                   inactiveTintColor: 'rgb(0, 150, 136)',
                 }}
               >
-          <Tab.Screen name="Sijaintitiedot" component={Alasveto} />
-          <Tab.Screen name="Asukas tiedot" component={Asukas_info} />
+          <Tab.Screen name="Asukastiedot" component={Asukastietoja} />
           <Tab.Screen name="Asukassijainnit" component={All_Asukassijainti} />
-          <Tab.Screen name="Hälytykset" component={Beacon_halyt} />
-          <Tab.Screen name="Asukastietoja" component={Asukastietoja} />
-          <Tab.Screen name="Ilmoitus" component={Ilmoitus} />
-          <Tab.Screen name="Häly" component={Häly} />
+          <Tab.Screen name="Hälytykset" component={Häly} />
+          <Tab.Screen name="Kuittaustila" component={Alasveto} />
+          <Tab.Screen name="Asukasvalinta" component={Asukasvalinta} />
         </Tab.Navigator>
       </NavigationContainer>
       

@@ -18,7 +18,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About the project
 
-Bluetooth beacons
+***
+#### Bluetooth beacons:
+ https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons
+***
 
 This project is directed towards helping people that are suffering from memory disorders. One of the ways this project accomplishes that is by tracking the patients, granting them some freedom from nursing staff. Patients wear bluetooth wristlets that send signals that are tracked by Raspberry Pis installed inside the nursing facility. The system is created to allow them more freedom of movement inside the areas they are permitted to access and to send alarms to nurses/staff via web or mobile client if patients wander outside the designated areas.
 
@@ -26,34 +29,42 @@ This is the mobile version of Bluetooth_beacons that can be found here: https://
 This version uses the same backend node server that the web version uses.
 
 ### Built With
-* [MySQL](https://www.mysql.com/)
-* [Socket.io](https://socket.io/)
+
 * [React Native](https://reactjs.org/)
+* [Expo](https://socket.io/)
+* [Socket.io](https://socket.io/)
 * [Node.js](https://nodejs.org/en/)
-* [MQTT](http://mqtt.org/)
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
 Make sure that you have node.js and Expo CLI installed.
 You can install node from here: https://nodejs.org/en/
-You can find expo installation instructions here: https://docs.expo.io/get-started/installation/
+
+You can find Expo installation instructions here: https://docs.expo.io/get-started/installation/
 
 ### Prerequisites
 
-1. Download the application .zip
-2. Unzip the file to destination you like
-3. With Powershell, navigate to unzipped application folder `pushd ..\Bluetooth_beacons_mobile`
+
+Clone the project:
+```sh
+git clone https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile.git
+```
+```sh
+ cd Bluetooth_beacons_mobile
+ ```
+
 
 ### Installation
 
 1. Using Powershell, install all required libraries by running `npm install`, `npm i @expo/vector-icons` and `npm i native-base`
-2. Make sure that all libraries are installed by navigating to detect folder using Powershell and running application's backend file called detection.js.
+2. Make sure that all libraries are installed by navigating to detect folder using Powershell and running application's backend file called monitorserver.js.
 ```sh
-..\Bluetooth_beacons_mobile\src\detection
+..\Bluetooth_beacons\src\realtime_db
 ```
 ```sh
-node detect.js
+node monitorserver.js
 ```
 3. If program starts with infotext "Socket.io is running on port 4001"... your installation is succesful.
 4. If there is problem with some library for example mysql, install the required library: `npm install mysql`

@@ -5,10 +5,10 @@ import {
     View,
     StyleSheet, FlatList, TouchableOpacity
 } from 'react-native';
-import {  CardItem, Thumbnail, Left, Body, Right,Card } from 'native-base';
+import {  CardItem, Left, Body, Right,Card } from 'native-base';
 import socketIOClient from "socket.io-client";
 import axios from 'axios';
-import { Image, Badge,withBadge, Icon  } from 'react-native-elements'
+import { Image, Icon  } from 'react-native-elements'
 
 const PUSH_ENDPOINT3= "http://192.168.1.197:4000/statuses/"
 
