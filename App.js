@@ -1,21 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-//import Asukas_info from "./src/www/pages/asukas_tiedot";
-import Alasveto from "./src/www/pages/dropdown_alarm";
 import All_Asukassijainti from "./src/www/pages/locations_info";
-//import Beacon_halyt from "./src/www/pages/beacon_halyt";
 import Asukastietoja from './src/www/pages/asukastietoja';
 import Häly from './src/www/pages/hälytys'
-import Asukasvalinta from './src/www/pages/asukasvalinta'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-//import Ilmoitus from './src/www/pages/push';
-//import { Image } from 'native-base';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Text, View, Button, Platform,Linking, } from 'react-native';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from 'react';
+import {  Platform } from 'react-native';
+
 
 const Tab = createBottomTabNavigator();
 const PUSH_ENDPOINT = 'http://192.168.1.197:4000/api/push_notification/push_token';
@@ -103,12 +97,6 @@ export default function App() {
                     else if (route.name === 'Hälytykset') {
                       iconName =  'warning';
                     }
-                    else if (route.name === 'Kuittaustila') {
-                      iconName =  'check';
-                    }
-                    else if (route.name === 'Asukasvalinta') {
-                      iconName =  'person-add';
-                    }
                     
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                   },
@@ -121,8 +109,6 @@ export default function App() {
           <Tab.Screen name="Asukastiedot" component={Asukastietoja} />
           <Tab.Screen name="Asukassijainnit" component={All_Asukassijainti} />
           <Tab.Screen name="Hälytykset" component={Häly} />
-          <Tab.Screen name="Kuittaustila" component={Alasveto} />
-          <Tab.Screen name="Asukasvalinta" component={Asukasvalinta} />
         </Tab.Navigator>
       </NavigationContainer>
       
