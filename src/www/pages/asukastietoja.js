@@ -5,17 +5,17 @@ import {
     View,
     StyleSheet, FlatList
 } from 'react-native';
-import { Container, Header, Content,  CardItem, Thumbnail,  Button, Icon, Left, Body, Right,Card } from 'native-base';
-import { Avatar } from "react-native-elements";
+import {   CardItem, Thumbnail, Left, Body, Card } from 'native-base';
 
 
-export default function LAsukastietoja() {
+
+export default function Asukastietoja() {
 
   const [tieto, setTieto] = useState([]);
 
 
   useEffect (() => {
-      // Put your Ipv4 address here for example http://000.000.0.0:4000/beacon_info
+      // Put your Ipv4 address here for example http://000.000.0.0:4000/tenants
       fetch('https://www.vanhusmonitorointi.tk/tenants')
           .then((response) => response.json())
           .then(responseJson => {
