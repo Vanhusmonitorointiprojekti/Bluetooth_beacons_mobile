@@ -124,11 +124,13 @@ Follow on screen expo directions to launch the app on the device of your choice.
 **Asukastiedot**
 
  Client info page shows client information like name, home details and beacon info
+
 ![asukastiedot](IMG/asukastiedot.jpeg)
 
 **Asukassijainnit**
 
 Beacon locations is the main page of the application and it shows if becons have been detected outside the green zone.
+
 ![sijainnit](IMG/sijainnit.jpeg)
 
 **Hälytykset**
@@ -154,7 +156,7 @@ If there aren´t any alarms the screen looks like this:
 
 
 <!-- Logic -->
-### Logic
+### Technical description
 
  App uses an older version of the backend used in https://github.com/Marski96/Bluetooth_beacons. 
  
