@@ -202,8 +202,6 @@ If there aren´t any alarms the screen looks like this:
 <!-- Logic -->
 ### Technical description
 
- App uses an older version of the backend used in https://github.com/Marski96/Bluetooth_beacons. 
- 
  App has been created using react native and expo. It uses react native's useEffect to fetch data from the node backend and socketio to keep fetching the data.
  
  For a more detailed description of the logic and for the backend details check Bluetooth beacons repository.
