@@ -267,7 +267,13 @@ Backend sending notification when client is in the area that is forbidden for hi
 <!-- Known issues and future developments -->
 ## Known issues and future developments
 
-See the [open issues](https://github.com/Marski96/Bluetooth_beacons_mobile/issues) for a list of proposed features (and known issues).
+*nurses can choose the tenants whose alarms and status they observe
+*a night profile needs to be added, where all the tenants are restricted to their own home during the night time
+*more steps for checking the alarms need to be added in addition to the "Situation ok" ("I'll go check", "Escalate to others")
+*if a beacon is not detected within a certain time limit, send an alarm
+*if the alarm is not checked by a nurse within a certain time limit, escalate to others automatically
+*the system should send a warning, if a tenant is not chosen for monitoring
+
 
 <!-- License -->
 ## License
