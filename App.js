@@ -13,8 +13,7 @@ import {  Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 // Put your Ipv4 address here for example http://000.000.0.0:4000/api/push_notification/push_token
-const PUSH_ENDPOINT = 'http://192.168.1.197:4000/api/push_notification/push_token';
-const PUSH_ENDPOINT2 = "http://192.168.1.197:4000/api/push_notification/message"
+const PUSH_ENDPOINT = 'http://000.000.0.0:4000/api/push_notification/push_token';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');

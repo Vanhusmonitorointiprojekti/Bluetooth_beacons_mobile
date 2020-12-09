@@ -27,14 +27,15 @@ export default function Locations_info() {
   
 
   useEffect (() => {    
-      axios.get('https://www.vanhusmonitorointi.tk/statuses')
+      // Put your Ipv4 address here for example http://000.000.0.0:4000/statuses
+      axios.get('http://000.000.0.0:4000/statuses')
           .then((response) => {
             const Array = response.data.filter(tenant => tenant.status == 'alarm')
             
             setTieto(Array)})
         console.log('tieto alussa', tieto)
-    
-        const socket = socketIOClient("http://195.148.21.28:4002");
+        // Put your Ipv4 address here for example http://000.000.0.0:4002
+        const socket = socketIOClient("http://000.000.0.0:4002");
         let newArray = []
         let newArray2 =[]
         

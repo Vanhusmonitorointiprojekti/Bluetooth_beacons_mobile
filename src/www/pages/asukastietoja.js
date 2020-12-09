@@ -16,7 +16,7 @@ export default function Asukastietoja() {
 
   useEffect (() => {
       // Put your Ipv4 address here for example http://000.000.0.0:4000/tenants
-      fetch('https://www.vanhusmonitorointi.tk/tenants')
+      fetch('http://000.000.0.0:4000/tenants')
           .then((response) => response.json())
           .then(responseJson => {
               setTieto(...tieto, responseJson)

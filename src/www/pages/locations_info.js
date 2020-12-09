@@ -18,13 +18,14 @@ export default function Locations_info() {
   useEffect (() => {
         let newArray = []
       // Put your Ipv4 address here for example http://000.000.0.0:4000/statuses
-        axios.get('https://www.vanhusmonitorointi.tk/statuses')
+        axios.get('http://000.000.0.0:4000/statuses')
           .then((response) => {
                 setTieto(response.data)
                 newArray = response.data
         })
         console.log('tieto alussa', tieto)
-        const socket = socketIOClient("http://195.148.21.28:4002");
+        // Put your Ipv4 address here for example http://000.000.0.0:4002
+        const socket = socketIOClient("http://000.000.0.0:4002");
         
         socket.on("updates", async data =>  {
             console.log('update', data)
