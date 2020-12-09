@@ -23,15 +23,26 @@
  https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons
 ***
 
-This project is directed towards helping people that are suffering from memory disorders. One of the ways this project accomplishes that is by tracking the patients, granting them some freedom from nursing staff. Patients wear bluetooth wristlets that send signals that are tracked by Raspberry Pis installed inside the nursing facility. The system is created to allow them more freedom of movement inside the areas they are permitted to access and to send alarms to nurses/staff via web or mobile client if patients wander outside the designated areas.
+
+The purpose of the project is to support the residents of a nursing home under construction that are suffering from memory disorders to live more independently in safety. 
+The project consists of different sections, which are described in more detail in the repository [Bluetooth Beacons](https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons).
+
+The residents will be wear ing bluetooth wristlets that send signals that are tracked by Raspberry Pis installed inside the nursing facility.
+
+An application has been made in this repository, through which users, ie caregivers, can see the locations of residents and receive an alarm notification on the phone when a resident has moved to an area that is not safe due to a memory disorder.
+
+
 
 This is the mobile version of Bluetooth_beacons that can be found here: https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
 This version uses the same backend node server that the web version uses.
-
+***
+#### Bluetooth beacons mobile:
+ https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
+***
 ### Built With
 
-* [React Native](https://reactjs.org/)
-* [Expo](https://socket.io/)
+* [React Native](https://reactnative.dev/)
+* [Expo](https://docs.expo.io/)
 * [Socket.io](https://socket.io/)
 * [Node.js](https://nodejs.org/en/)
 
@@ -45,6 +56,24 @@ Make sure that you have installed:
 * and Expo CLI
 
 You can install node from here: https://nodejs.org/en/
+
+To view a project you must have an Expo CLI server running for that project:
+
+1. Expo CLI
+
+    * Run the following command on the terminal or command-line tool to install expo CLI globally:
+
+    ```sh 
+      npm install --global expo-cli
+    ```
+2. Expo client app
+
+    * Download and install the expo client from the app store using your mobile device.
+    * Expo opens Metro Bundler in your browser after you run your app.
+
+    * Scan QR code from the expo development tool and then the app will open in your mobile device
+![qr](IMG/expoqr.png)
+
 
 You can find Expo installation instructions here: https://docs.expo.io/get-started/installation/
 
@@ -65,16 +94,14 @@ git clone https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
 1. Install all required libraries by running `npm install`
 2. **Backend:**
 
-
- You are also running application's [backend](https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons/blob/master/src/realtime_db/monitorserver.js) file called monitorserver.js.
-```sh
-..\Bluetooth_beacons\src\realtime_db
-```
-```sh
-node monitorserver.js
-```
-  * If program starts with infotext "Socket.io is running on port "... your installation is succesful.
- * If there is problem with some library for example axios, install the required library: `npm install axios`
+    ```sh
+    ..\Bluetooth_beacons\src\realtime_db
+    ```
+    ```sh
+    node monitorserver.js
+    ```
+    * If program starts with infotext "Socket.io is running on port "... your installation is succesful.
+    * If there is problem with some library for example axios, install the required library: `npm install axios`
 
 3. For the app to run succesfully using the expo's built in emulator the app requires the user to enter their Ipv4 address to both locations_info.js and hälytys.js files inside the pages folder.
    
