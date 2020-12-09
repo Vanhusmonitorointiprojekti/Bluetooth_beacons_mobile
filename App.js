@@ -18,7 +18,8 @@ import { Text, View, Button, Platform,Linking, } from 'react-native';
 import axios from 'axios';
 
 const Tab = createBottomTabNavigator();
-const PUSH_ENDPOINT = 'http://192.168.1.197:4000/api/push_notification/push_token';
+//oma ip
+const PUSH_ENDPOINT = 'http://000.168.1.197:4000/api/push_notification/push_token';
 const PUSH_ENDPOINT2 = "http://192.168.1.197:4000/api/push_notification/message"
 
 export default function App() {

@@ -33,7 +33,7 @@ export default function Locations_info() {
             
             setTieto(Array)})
         console.log('tieto alussa', tieto)
-    
+    //put ip
         const socket = socketIOClient("http://195.148.21.28:4002");
         let newArray = []
         let newArray2 =[]
