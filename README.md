@@ -91,32 +91,41 @@ git clone https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
 
 ### Installation
 
-1. Install all required libraries by running `npm install`
-2. **Backend:**
+* Install all required libraries by running `npm install`
+* **Front-end:**
 
-    ```sh
-    ..\Bluetooth_beacons\src\realtime_db
-    ```
-    ```sh
-    node monitorserver.js
-    ```
-    * If program starts with infotext "Socket.io is running on port "... your installation is succesful.
-    * If there is problem with some library for example axios, install the required library: `npm install axios`
+  Start front-end by opening another terminal and navigating to application folder:
 
-3. For the app to run succesfully using the expo's built in emulator the app requires the user to enter their Ipv4 address to both locations_info.js and hälytys.js files inside the pages folder.
    
+       .\Bluetooth_beacons_mobile
+    
+
+  & run start:
+
+  ```sh
+  expo start
+  ```
+  Follow on screen expo directions to launch the app on the device of your choice.
+
+* For the app to run succesfully using the expo's built in emulator the app requires the user to enter their Ipv4 address to files inside the pages folder.:
+    * locations_info.js
+    * asukastietoja.js
+    * hälytys.js 
+    * and also App.js
+    
    Here is an example of the required code to be modified.
    
          useEffect (() => {
            let newArray = []
-           // Put your Ipv4 address here for example http://000.000.0.0:4000/statuses
-        axios.get('https://www.vanhusmonitorointi.tk/statuses')
+            Put your Ipv4 address here for example http://000.000.0.0:4000/statuses
+        axios.get('http://000.000.0.0:4000/statuses')
           .then((response) => {
                 setTieto(response.data)
                 newArray = response.data
         })
         console.log('tieto alussa', tieto)
-        const socket = socketIOClient("http://195.148.21.28:4002");
+        // Put your Ipv4 address here for example http://000.000.0.0:4002
+        const socket = socketIOClient("http://000.000.0.0:4002");
         
         socket.on("updates", async data =>  {
             console.log('update', data)
@@ -125,22 +134,30 @@ git clone https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
             await setTieto(newArray)           
         });
 
+* **Backend:**  [more info about installation](https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons#installation)
 
-4. **Front-end:**
+    How to start monitoring server:
 
- Start front-end by opening another terminal and navigating to application folder:
-```sh
- .\Bluetooth_beacons_mobile
-```
+    
+      .\Bluetooth_beacons\src\realtime_db
+   
+      node monitorserver.js
 
-& run start:
+  Start RethinkDB server in another terminal window (in the folder where you created the rethinkdb_data folder)
 
-```sh
-expo start
-```
-Follow on screen expo directions to launch the app on the device of your choice.
+      rethinkdb
 
-6. Both backend and frontend should be running in order for the application to work.
+
+
+   * If program starts with infotext "Socket.io is running on port "... your installation is succesful.
+   * If there is problem with some library for example axios, install the required library: `npm install axios`
+
+
+
+
+
+
+* Both backend and frontend should be running in order for the application to work.
 
 <!-- How to use -->
 ## How to use
