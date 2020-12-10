@@ -97,7 +97,7 @@ git clone https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
   Start front-end by opening another terminal and navigating to application folder:
 
    
-       .\Bluetooth_beacons_mobile
+       ./Bluetooth_beacons_mobile
     
 
   & run start:
@@ -136,20 +136,22 @@ git clone https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons_mobile
 
 * **Backend:**  [more info about installation](https://github.com/Vanhusmonitorointiprojekti/Bluetooth_beacons#installation)
 
-    How to start monitoring server:
-
-    
-      .\Bluetooth_beacons\src\realtime_db
-   
-      node monitorserver.js
 
   Start RethinkDB server in another terminal window (in the folder where you created the rethinkdb_data folder)
 
       rethinkdb
+  Make sure that MariaDB is running as well locally
 
 
+    How to start monitoring server:
 
-   * If program starts with infotext "Socket.io is running on port "... your installation is succesful.
+    
+      ./Bluetooth_beacons/src/realtime_db
+   
+      node monitorserver.js
+
+
+   * If program starts with infotext "Socket.io running on port "... your installation is succesful.
    * If there is problem with some library for example axios, install the required library: `npm install axios`
 
 
@@ -195,8 +197,6 @@ const sendTenantID = async(data) =>{
 If there aren´t any alarms the screen looks like this:
 
 ![ok](IMG/ei_hälyjä.jpeg)
-
-
 
 
 <!-- Logic -->
@@ -267,12 +267,12 @@ Backend sending notification when client is in the area that is forbidden for hi
 <!-- Known issues and future developments -->
 ## Known issues and future developments
 
-*nurses can choose the tenants whose alarms and status they observe
-*a night profile needs to be added, where all the tenants are restricted to their own home during the night time
-*more steps for checking the alarms need to be added in addition to the "Situation ok" ("I'll go check", "Escalate to others")
-*if a beacon is not detected within a certain time limit, send an alarm
-*if the alarm is not checked by a nurse within a certain time limit, escalate to others automatically
-*the system should send a warning, if a tenant is not chosen for monitoring
+- nurses can choose the tenants whose alarms and status they observe
+- a night profile needs to be added, where all the tenants are restricted to their own home during the night time
+- more steps for checking the alarms need to be added in addition to the "Situation ok" ("I'll go check", "Escalate to others")
+- if a beacon is not detected within a certain time limit, send an alarm
+- if the alarm is not checked by a nurse within a certain time limit, escalate to others automatically
+- the system should send a warning, if a tenant is not chosen for monitoring
 
 
 <!-- License -->
