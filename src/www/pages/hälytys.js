@@ -10,13 +10,12 @@ import socketIOClient from "socket.io-client";
 import axios from 'axios';
 import { Image, Icon  } from 'react-native-elements'
 
-const PUSH_ENDPOINT3= "http://192.168.1.197:4000/statuses/"
+// Put your Ipv4 address here for example http://000.000.0.0:4000/statuses
+const PUSH_ENDPOINT3= "http://000.000.0.0:4000/statuses/"
 
 export default function Locations_info() {
 
   const [tieto, setTieto] = useState([]);
-  const [changes, setChanges] = useState([]);
-  
 
 
   const sendTenantID = async(data) =>{
