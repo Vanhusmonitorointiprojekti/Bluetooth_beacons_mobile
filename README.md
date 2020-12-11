@@ -276,6 +276,11 @@ Backend sending notification when client is in the area that is forbidden for hi
 - the system should send a warning, if a tenant is not chosen for monitoring
 - adding tenant pictures to database
 
+More information about ![databases](Documents/TietokantasuunnitelmaUUSI.xlsx) and
+
+
+![requirements](Documents/Vaatimukset.docx)
+
 <!-- License -->
 ## License
 Licensed under MIT -license.
