@@ -184,6 +184,7 @@ Beacon locations is the main page of the application and it shows if becons have
 This is the screen where the nurse can check out the alarm:
 
 ![kuittaus](IMG/kuittaa.jpeg)
+![kuittattu](IMG/kuitattu.png)
 
 When the "Kuittaa hälytys" -button is pressed, it will send the tenant id and the information that the nurse has checked the situation that has caused the alarm to the backend server.
 
@@ -273,7 +274,9 @@ Backend sending notification when client is in the area that is forbidden for hi
 - if a beacon is not detected within a certain time limit, send an alarm
 - if the alarm is not checked by a nurse within a certain time limit, escalate to others automatically
 - the system should send a warning, if a tenant is not chosen for monitoring
+- adding tenant pictures to database
 
+More information about ![databases](Documents/TietokantasuunnitelmaUUSI.xlsx) and![requirements](Documents/Vaatimukset.docx)
 
 <!-- License -->
 ## License
